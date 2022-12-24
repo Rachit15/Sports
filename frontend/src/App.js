@@ -6,6 +6,7 @@ import NavbarComp from './Components/NavbarComp';
 import RSlider from './Components/RSlider';
 import Arrange from './Components/Arrange';
 import Home from './Components/Home';
+import SignUp from './Components/SignUp';
 
 
 
@@ -27,6 +28,7 @@ function App() {
       <Route  exact path='/individualevents' element={<h1>Individual Events</h1>}></Route> 
       <Route  exact path='/aboutus' element={<h1>About us</h1>}></Route> 
          <Route  exact path='/arrange' element={<Arrange/>}></Route> 
+         <Route  exact path='/arrange/signup' element={<SignUp/>}></Route> 
 
 
       
