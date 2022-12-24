@@ -3,35 +3,43 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import{Link} from "react-router-dom";
 
-export default class NavbarComp extends Component {
-  render() {
-    return (
-      <div>
-       <Navbar bg="light" expand="lg">
+import Arrange from './Arrange';
+import RSlider from './RSlider';
+
+const NavbarComp = () => {
+  return (
+    <>
+    <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Home</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
           <NavDropdown title="Games" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Team Events</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+              <NavDropdown.Item as={Link} to="/teamevents">Team Events</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to='/individualevents'>
                 Individual Events
               </NavDropdown.Item>
               
             </NavDropdown>
-            <Nav.Link href="#home">About Us</Nav.Link>
-            <Nav.Link href="#link">Tournament Arrangement</Nav.Link>
-           
+            <Nav.Link as={Link} to="/aboutus">About Us</Nav.Link>
+            
+            <Nav.Link as={Link} to="/arrange" >Create tournament</Nav.Link>
+            
               
             
           </Nav>
         </Navbar.Collapse>
       </Container>
+      
     </Navbar>
-
-      </div>
-    )
-  }
+    
+    </>
+      
+    
+  )
 }
+
+export default NavbarComp

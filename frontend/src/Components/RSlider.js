@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
+import React from 'react';
+import  Carousel from 'react-bootstrap/Carousel';
 
-export default class RSlider extends Component {
-  render() {
-    return (
-      <>
-        <Carousel>
+const RSlider = () => {
+  return (
+    <>
+      <Carousel>
       <Carousel.Item interval={1000}>
         <img
           className="d-block w-100"
@@ -18,7 +17,8 @@ export default class RSlider extends Component {
       </Carousel.Item>
       <Carousel.Item interval={500}>
         <img
-          className="d-block w-100"
+          className="Swimming"
+          id="img"
           src="https://iis.stkabirschool.com/wp-content/uploads/2019/10/Khel-Mahakumbh-5.jpg"
           alt="Second slide"
         />
@@ -38,7 +38,7 @@ export default class RSlider extends Component {
       </Carousel.Item>
     </Carousel>
     </>
-    )
-  }
+  )
 }
 
+export default RSlider
