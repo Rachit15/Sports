@@ -1,8 +1,19 @@
 const express=require("express");
+ const cors=require("cors");
+ 
 const app=express();
-require("./db/config");
-app.get('/',(req,res)=>{
-    res.send("Welcome To Sports ");
-})
+
+const Creator=require("./db/model/Creator");
+const dotenv=require("dotenv");
+dotenv.config({path: './confg.env'});
+require("./db/config")
+app.use(express.json())
+app.use(cors());
+app.use(require('./router/auth'));
+
+ 
+ 
+
 
 app.listen(8080);
+    

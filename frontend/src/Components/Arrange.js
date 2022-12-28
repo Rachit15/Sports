@@ -16,8 +16,8 @@ const Arrange = () => {
                         
                         <form class="Log">
                         <p>
-                            Email: <br />
-                            <input type="email" name="text" id="Address" placeholder="Type your ID here" 
+                            Username: <br />
+                            <input type="text" name="text" id="Address" placeholder="Type your ID here" 
                             />
                         </p>
                         

@@ -1,7 +1,11 @@
 const mongoose=require('mongoose');
-mongoose.connect("mongodb+srv://RachitModi:mhr2oAbXURk2oOpU@cluster0.pqgpjgg.mongodb.net/Local_Sports?retryWrites=true&w=majority")
-.then(()=>{
-    console.log("Connection successfull");
-}).catch((error)=>{
-    console.log(error);
-});
+
+
+const DB=process.env.DATABASE;
+
+ mongoose.connect(DB)
+ .then(()=>{
+      console.log("Connection successfull");
+  }).catch((error)=>{
+     console.log(error);
+  });

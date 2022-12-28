@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
      <h1>Sports Guider</h1>
-     <NavbarComp/>
+     
      <RSlider/> 
     </>
   )

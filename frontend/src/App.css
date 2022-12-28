@@ -56,6 +56,8 @@ body{
 .box-1{
   border: 2px solid rgb(0,255,255);
   border-radius: 4px;
+  margin-left: 300px;
+  margin-right: 500px;
 }
 .title_box{
   padding:  40px 40px;
@@ -63,7 +65,7 @@ body{
 }
 .content_box{
   background-color: azure;
-  margin-right: 1280px;
+  margin-right: 500px;
 }
 .Sign{
 margin-left: 500px;
