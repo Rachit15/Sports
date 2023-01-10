@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router();
 const Creator=require('../db/model/Creator')
 const bcrypt=require('bcryptjs')
+const cookie=require('cookie');
 const jwt=require('jsonwebtoken');
 
 router.get('/',(rew,res)=>{
@@ -44,28 +45,30 @@ router.post('/arrange',async(req,res)=>
         return res.status(422).json({error:"Please fill all details"});
     }
     
-     loggedin=await Creator.findOne({email:email});
+    const loggedin=await Creator.findOne({email:email});
+    console.log(loggedin);
     if(loggedin)
     {
-        const pass=await bcrypt.compare(password,loggedin.password);
-         token=await loggedin.generateAuthToken();
+         const pass=await bcrypt.compare(password,loggedin.password);
+        const  token=await loggedin.generateAuthToken();
         console.log(token);
-        res.cookie("jwtoken",token,{
-           expires:new Date(Date.now()+12000) 
-        })
-        console.log(token);
-        if(pass)
+         res.cookie("jwtoken",token,{
+            expires:new Date(Date.now()+12000) 
+         })
+         console.log(token);
+        if(!pass)
         {
-            res.json({message:"Signed in"});
-            
+            res.json({message:"Invalid Credentials"});
+            console.log("Not correct password")
         }
         else{
-            res.json({message:"Invalid Credentials"});
+            res.json({message:"Signed Successfully"});
+            console.log("Signed in successfully")
         }
     }
     else{
         res.status(422).json({error:"Invalid Credentials"});
-
+        console.log("Not Correct Email");
     }
     }
     catch(err){
