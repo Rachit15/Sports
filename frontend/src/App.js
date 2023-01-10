@@ -30,9 +30,9 @@ function App() {
       <Route  exact path='/individualevents' element={<h1>Individual Events</h1>}></Route> 
       <Route  exact path='/aboutus' element={<h1>About us</h1>}></Route> 
          <Route  exact path='/arrange' element={<Arrange/>}></Route> 
-         <Route  exact path='/arrange/signup' element={<SignUp/>}></Route> 
+          <Route  exact path='/arrange/signup' element={<SignUp/>}></Route>  
     
-    <Route exact path='/arrange/signup/tournamentform' element={<TournamentForm/>}></Route>
+    {/* <Route exact path='' element={<SignUp/>}></Route> */}
       
     
       

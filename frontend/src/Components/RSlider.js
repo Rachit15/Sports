@@ -4,11 +4,11 @@ import  Carousel from 'react-bootstrap/Carousel';
 const RSlider = () => {
   return (
     <>
-      <Carousel>
+      <Carousel style={{  width: '1300px',paddingLeft: '100px' }}>
       <Carousel.Item interval={1000}>
         <img
           className="d-block w-100"
-          src="https://th.bing.com/th/id/OIP.RZHbT37DNC4oQkFAjPb4UwHaEm?w=283&h=180&c=7&r=0&o=5&dpr=1.4&pid=1.7"
+          src="https://images.pexels.com/photos/260024/pexels-photo-260024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -17,9 +17,9 @@ const RSlider = () => {
       </Carousel.Item>
       <Carousel.Item interval={500}>
         <img
-          className="Swimming"
+          className="d-block w-100"
           id="img"
-          src="https://iis.stkabirschool.com/wp-content/uploads/2019/10/Khel-Mahakumbh-5.jpg"
+          src="https://images.pexels.com/photos/6203574/pexels-photo-6203574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="Second slide"
         />
         <Carousel.Caption>
@@ -29,7 +29,7 @@ const RSlider = () => {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://th.bing.com/th/id/OIP.8pKWzQ4J1QVJtHxeRG9u5wHaEK?pid=ImgDet&rs=1"
+          src="https://images.pexels.com/photos/8688143/pexels-photo-8688143.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="Third slide"
         />
         <Carousel.Caption>
