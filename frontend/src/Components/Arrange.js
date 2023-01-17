@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import './Arrange.css';
 import Button from 'react-bootstrap/esm/Button';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+
 import {
   MDBBtn,
   MDBContainer,
@@ -19,7 +20,7 @@ const Arrange = () => {
     const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const collectData = async () => {
-     console.log("hello hy");
+     console.log("hello ");
      console.log(email, password);
      let  result=await fetch("http://localhost:8080/arrange",{
             method:'post',
@@ -29,8 +30,14 @@ const Arrange = () => {
             }
 
         });
-        result=await result.json();
-        localStorage.setItem("creator",JSON.stringify(result));
+       let data=await result.json();
+        if(!data||result.status===422)
+        console.log("error");
+        else
+        {
+          localStorage.setItem("creator",JSON.stringify(result));
+          window.location='/createtournament';
+        }
 
   }
   return (
@@ -52,7 +59,7 @@ const Arrange = () => {
 
               <p className="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
               <button type="button" className="btn btn-primary text-uppercase btn-md shadow  rounded"
-                style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }} onClick={collectData} >Login</button>
+                style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }} onClick={collectData} as={Link} to='/createtournament' >Login</button>
 
               <div className='d-flex flex-row mt-3 mb-5'>
                 <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
