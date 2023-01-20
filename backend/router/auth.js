@@ -1,9 +1,12 @@
 const express=require('express');
 const router=express.Router();
-const Creator=require('../db/model/Creator')
+const Creator=require('../db/model/Creator');
+const Tournament=require('../db/model/Tournament');
+
 const bcrypt=require('bcryptjs')
 const cookie=require('cookie');
 const jwt=require('jsonwebtoken');
+
 
 router.get('/',(rew,res)=>{
     res.send("Hi");
@@ -53,12 +56,14 @@ router.post('/arrange',async(req,res)=>
         const  token=await loggedin.generateAuthToken();
         console.log(token);
          res.cookie("jwtoken",token,{
-            expires:new Date(Date.now()+12000) 
+            expires:new Date(Date.now()+12000000) ,
+            httpOnly:true
+            
          })
-         console.log(token);
+         
         if(!pass)
         {
-            res.json({message:"Invalid Credentials"});
+            res.status(422).json({message:"Invalid Credentials"});
             console.log("Not correct password")
         }
         else{
@@ -75,5 +80,23 @@ router.post('/arrange',async(req,res)=>
         console.log(err);
     }
 })
+router.post('/createtournament',async(req,res)=>{
+    console.log("Hi in create");
+    const {tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2}=req.body;
+   
+    try{
+  
+    const tournament =new Tournament({tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2});
+   
+    let resulttournament=await tournament.save();
+    console.log(resulttournament);
+    res.send(resulttournament);
+
+    }
+    catch(err){
+        console.log(err);
+    }
+   
+});
 
 module.exports=router;

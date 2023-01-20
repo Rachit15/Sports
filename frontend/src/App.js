@@ -8,7 +8,7 @@ import Arrange from './Components/Arrange';
 import Home from './Components/Home';
 import SignUp from './Components/SignUp';
 import TournamentForm from './Components/TournamentForm';
-
+import CreateTournament from './Components/CreateTournament';
 
 
 
@@ -31,8 +31,7 @@ function App() {
       <Route  exact path='/aboutus' element={<h1>About us</h1>}></Route> 
          <Route  exact path='/arrange' element={<Arrange/>}></Route> 
           <Route  exact path='/arrange/signup' element={<SignUp/>}></Route>  
-    
-    {/* <Route exact path='' element={<SignUp/>}></Route> */}
+          <Route  exact path='/createtournament' element={<CreateTournament/>}></Route>  
       
     
       

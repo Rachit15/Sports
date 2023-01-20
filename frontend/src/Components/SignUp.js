@@ -22,7 +22,7 @@ const SignUp = () => {
     console.log(username,name,contact,email,password);
     const collectData=async()=>{
         console.log("Hi");
-            let  result=await fetch("http://localhost:8080/register",{
+            const  result=await fetch("http://localhost:8080/register",{
                 method:'post',
                 body:JSON.stringify({name,username,email,contact,password}),
                 headers:{
@@ -30,11 +30,18 @@ const SignUp = () => {
                 }
     
             });
-            result=await result.json();
-            localStorage.setItem("creator",JSON.stringify(result));
+            let data=await result.json();
+        if(!data||result.status===422)
+        console.log("error");
+        else
+        {
+          window.location='/arrange';
+        }
+             
     console.log("In collectData")
         console.log(username,name,contact,email,password);
-            
+         
+
         }
 
   return (
