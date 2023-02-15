@@ -44,6 +44,14 @@ const CreateTournament = () => {
       }
 
   });
+  let data=await result.json();
+  if(!data||result.status===422)
+  console.log("error");
+  else
+  {
+    
+    window.location='/arrange';
+  }
    console.log(result);
   }
   return (

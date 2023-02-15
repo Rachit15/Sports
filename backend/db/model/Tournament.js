@@ -2,10 +2,13 @@ const mongoose  = require("mongoose");
 // const bcrypt=require('bcryptjs');
 // const jwt=require('jsonwebtoken')
 const TournamentSchema=new mongoose.Schema({
-    
+    TID:{
+        type:String,
+        required:true
+    },
     tournamentname:{type:String,
             required:true},
-    tournamentplace:{type:String,
+tournamentplace:{type:String,
         required:true},
 startDate:{type:String,
         required:true},

@@ -2,13 +2,15 @@ const express=require('express');
 const router=express.Router();
 const Creator=require('../db/model/Creator');
 const Tournament=require('../db/model/Tournament');
+const ResourceUser=require('../db/model/Resource')
 
 const bcrypt=require('bcryptjs')
 const cookie=require('cookie');
 const jwt=require('jsonwebtoken');
 
 
-router.get('/',(rew,res)=>{
+
+router.get('/',(req,res)=>{
     res.send("Hi");
 });
 router.post('/register',async(req,res)=>{
@@ -85,18 +87,52 @@ router.post('/createtournament',async(req,res)=>{
     const {tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2}=req.body;
    
     try{
-  
-    const tournament =new Tournament({tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2});
+  if(!tournamentname||!tournamentplace||!startDate||!selectedOption||!tournamenthost||!winner||!Runner1||!Runner2)
+  {
+    return res.status(422).json({error:"Plz fill all details"});
+  }
+    // const tournament =new Tournament({tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2});
+    const initid="2022";
+   const initvar=0;
+   
+   const resource=new ResourceUser({initid,initvar});
+   let resourceresult=await resource.save();
+   console.log(resourceresult);
+   const d=await ResourceUser.findOne({initid:"2022"});
+   
+//    let x="TS";
+//    console.log(x);
+//    x+=d.initvar;
+let date=new Date();
+let s=date.getFullYear().toString().substr(0,4);
+console.log(s);
+let x=s+"TS"+d.initvar;
+ console.log(x);
+    const tournament =new Tournament({TID:x,tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2});
    
     let resulttournament=await tournament.save();
+  
     console.log(resulttournament);
     res.send(resulttournament);
-
+    d.initvar++;
+    const f=await ResourceUser.findOneAndUpdate({initid:"2022"},{initvar:d.initvar});
+    console.log(f);
+    
     }
     catch(err){
         console.log(err);
     }
    
+});
+router.post('/individualevents/event1',async(req,res)=>{
+    const game= await Tournament.find({tournamentplace:"Badminton"});
+    if(game.length>0)
+    {
+        res.send(game);
+    }
+    // else{
+    //     return res.status(422).json({error:"Please fill all details"});
+    // }
 });
 
 module.exports=router;

@@ -9,6 +9,11 @@ import Home from './Components/Home';
 import SignUp from './Components/SignUp';
 import TournamentForm from './Components/TournamentForm';
 import CreateTournament from './Components/CreateTournament';
+import Badminton from './Components/Badminton';
+import Chess from './Components/Chess';
+import Swimming from './Components/Swimming';
+import Carrom from './Components/Carrom';
+import Tennis from './Components/Tennis';
 
 
 
@@ -27,13 +32,17 @@ function App() {
       <Route  exact path='/' element={<Home/>}></Route> 
       
       <Route  exact path='/teamevents' element={<h1>Team events</h1>}></Route> 
-      <Route  exact path='/individualevents' element={<h1>Individual Events</h1>}></Route> 
+     
       <Route  exact path='/aboutus' element={<h1>About us</h1>}></Route> 
          <Route  exact path='/arrange' element={<Arrange/>}></Route> 
           <Route  exact path='/arrange/signup' element={<SignUp/>}></Route>  
           <Route  exact path='/createtournament' element={<CreateTournament/>}></Route>  
       
-    
+          <Route  exact path='/individualevents/event1' element={<Badminton/>}></Route>  
+          <Route  exact path='/individualevents/event2' element={<Chess/>}></Route>  
+          <Route  exact path='/individualevents/event3' element={<Swimming/>}></Route>  
+          <Route  exact path='/individualevents/event4' element={<Carrom/>}></Route>  
+          <Route  exact path='/individualevents/event5' element={<Tennis/>}></Route>  
       
       
         </Routes>
