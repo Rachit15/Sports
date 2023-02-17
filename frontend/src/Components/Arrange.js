@@ -77,7 +77,7 @@ const Arrange = () => {
 
               <div>
                 {/* <p className="mb-0">Don't have an account? <class="text-white-50 fw-bold" as={Link} to='/signup'>Sign Up</a></p> */}
-                <Button class="Sign" as={Link} to='signup'> SignUp</Button>
+                {/* <Button class="Sign" as={Link} to='signup'> SignUp</Button> */}
               </div>
             </MDBCardBody>
           </MDBCard>

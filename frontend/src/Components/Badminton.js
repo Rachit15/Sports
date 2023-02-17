@@ -4,7 +4,8 @@ import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-
+import Button from 'react-bootstrap/esm/Button';
+import { Link } from 'react-router-dom';
 const Badminton = () => {
   <h1>Badminton</h1>
   const[games,setGames]=useState([])
@@ -30,11 +31,18 @@ const Badminton = () => {
   return (
     <>
     <Table striped bordered hover variant='dark'  borderColor="success">
+      
       <tr>
         <th>Sr No.</th>
         <th>ID</th>
         <th>Tournament Name</th>
         <th>type</th>
+        <th>Date</th>
+        <th>Host Department</th>
+        <th> Winner Price</th>
+        <th>RunnerUp1 Price</th>
+        <th>RunnerUp2 Price</th>
+
       </tr>
       {
         games.map((val,idx) => {
@@ -45,12 +53,19 @@ const Badminton = () => {
                 <td>{val.TID}</td>
                 <td>{val.tournamentname}</td>
                 <td>{val.selectedOption}</td>
+                <td>{val.startDate.substring(0,10)}</td>
+                <td>{val.tournamenthost}</td>
+                <td>{val.winner}</td>
+                <td>{val.Runner1}</td>
+                <td>{val.Runner2}</td>
+
               </tr>
             </>
           )
         })
       }
     </Table>
+    <Button as={Link} to='/Register'>Register</Button>
     </>
   )
 }

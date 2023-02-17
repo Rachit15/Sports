@@ -11,7 +11,7 @@ import RSlider from './RSlider';
 const NavbarComp = () => {
   return (
     <>
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="success" expand="lg" variant='dark'style={{paddingRight:'0px',height:'50px'}}>
       <Container>
         <Navbar.Brand as={Link} to="/">Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

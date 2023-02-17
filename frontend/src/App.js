@@ -14,6 +14,8 @@ import Chess from './Components/Chess';
 import Swimming from './Components/Swimming';
 import Carrom from './Components/Carrom';
 import Tennis from './Components/Tennis';
+import SideBar from './Components/SideBar';
+import Register from './Components/Register';
 
 
 
@@ -35,14 +37,15 @@ function App() {
      
       <Route  exact path='/aboutus' element={<h1>About us</h1>}></Route> 
          <Route  exact path='/arrange' element={<Arrange/>}></Route> 
-          <Route  exact path='/arrange/signup' element={<SignUp/>}></Route>  
+          <Route  exact path='/admin' element={<SignUp/>}></Route>  
           <Route  exact path='/createtournament' element={<CreateTournament/>}></Route>  
-      
+          <Route  exact path='/Register' element={<Register/>}></Route>  
           <Route  exact path='/individualevents/event1' element={<Badminton/>}></Route>  
           <Route  exact path='/individualevents/event2' element={<Chess/>}></Route>  
           <Route  exact path='/individualevents/event3' element={<Swimming/>}></Route>  
           <Route  exact path='/individualevents/event4' element={<Carrom/>}></Route>  
           <Route  exact path='/individualevents/event5' element={<Tennis/>}></Route>  
+          
       
       
         </Routes>
