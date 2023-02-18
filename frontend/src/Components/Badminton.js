@@ -65,7 +65,7 @@ const Badminton = () => {
         })
       }
     </Table>
-    <Button as={Link} to='/Register'>Register</Button>
+    <Button as={Link} to='/participant'>Register</Button>
     </>
   )
 }

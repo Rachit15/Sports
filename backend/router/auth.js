@@ -3,11 +3,11 @@ const router=express.Router();
 const Creator=require('../db/model/Creator');
 const Tournament=require('../db/model/Tournament');
 const ResourceUser=require('../db/model/Resource')
-
+const Participants=require('../db/model/Participant')
 const bcrypt=require('bcryptjs')
 const cookie=require('cookie');
 const jwt=require('jsonwebtoken');
-
+const transporter=require('../middleware/Mailing')
 
 
 router.get('/',(req,res)=>{
@@ -65,8 +65,9 @@ router.post('/arrange',async(req,res)=>
          
         if(!pass)
         {
-            res.status(422).json({message:"Invalid Credentials"});
             console.log("Not correct password")
+         res.status(400).json({message:"Invalid Credentials"});
+            
         }
         else{
             res.json({message:"Signed Successfully"});
@@ -74,7 +75,7 @@ router.post('/arrange',async(req,res)=>
         }
     }
     else{
-        res.status(422).json({error:"Invalid Credentials"});
+       return res.status(400).json({message:"Invalid Credentials"});
         console.log("Not Correct Email");
     }
     }
@@ -89,7 +90,7 @@ router.post('/createtournament',async(req,res)=>{
     try{
   if(!tournamentname||!tournamentplace||!startDate||!selectedOption||!tournamenthost||!winner||!Runner1||!Runner2)
   {
-    return res.status(422).json({error:"Plz fill all details"});
+    return res.status(422).json({message:"Plz fill all details"});
   }
     // const tournament =new Tournament({tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2});
     const initid="2022";
@@ -134,5 +135,41 @@ router.post('/individualevents/event1',async(req,res)=>{
     //     return res.status(422).json({error:"Please fill all details"});
     // }
 });
+router.post('/participant',async(req,res)=>{
+    console.log("Hi in Participant");
+    const {Name,ID,BirthDate,Gender,TournamentID,email,Contactno}=req.body;
+   
+    try{
+//   if(!tournamentname||!tournamentplace||!startDate||!selectedOption||!tournamenthost||!winner||!Runner1||!Runner2)
+//   {
+//     return res.status(422).json({message:"Plz fill all details"});
+//   }
+    
 
+    const participant =new Participants({Name,ID,BirthDate,Gender,TournamentID,email,Contactno});
+   
+    let resultparticipant=await participant.save();
+  var mailOptions={
+    from:"help.ddusports@gmail.com",
+    to: resultparticipant.email,
+    subject:'Registration Info',
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+  }
+  transporter.sendMail(mailOptions,(err,info)=>{
+    if(err)
+    {
+        return console.log(err);
+    }
+    console.log(`Message Sent ${info.messageId}`);
+  });
+    console.log(resultparticipant);
+    res.send(resultparticipant);
+   
+    
+    }
+    catch(err){
+        console.log(err);
+    }
+   
+});
 module.exports=router;

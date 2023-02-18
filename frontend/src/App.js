@@ -16,7 +16,7 @@ import Carrom from './Components/Carrom';
 import Tennis from './Components/Tennis';
 import SideBar from './Components/SideBar';
 import Register from './Components/Register';
-
+import Admin from './Components/Admin';
 
 
 
@@ -37,9 +37,10 @@ function App() {
      
       <Route  exact path='/aboutus' element={<h1>About us</h1>}></Route> 
          <Route  exact path='/arrange' element={<Arrange/>}></Route> 
-          <Route  exact path='/admin' element={<SignUp/>}></Route>  
+          <Route  exact path='/register' element={<SignUp/>}></Route>  
+          <Route exact path='/adminpanel' element={<Admin/>}></Route>
           <Route  exact path='/createtournament' element={<CreateTournament/>}></Route>  
-          <Route  exact path='/Register' element={<Register/>}></Route>  
+          <Route  exact path='/participant' element={<Register/>}></Route>  
           <Route  exact path='/individualevents/event1' element={<Badminton/>}></Route>  
           <Route  exact path='/individualevents/event2' element={<Chess/>}></Route>  
           <Route  exact path='/individualevents/event3' element={<Swimming/>}></Route>  

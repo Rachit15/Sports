@@ -50,7 +50,7 @@ const CreateTournament = () => {
   else
   {
     
-    window.location='/arrange';
+    window.location='/adminpanel';
   }
    console.log(result);
   }

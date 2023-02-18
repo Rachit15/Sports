@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './Arrange.css';
 import Button from 'react-bootstrap/esm/Button';
 import { Link,useNavigate } from 'react-router-dom';
-
+import {message} from "antd";
 import {
   MDBBtn,
   MDBContainer,
@@ -31,12 +31,12 @@ const Arrange = () => {
 
         });
        let data=await result.json();
-        if(!data||result.status===422)
-        console.log("error");
+        if(!data||result.status===400)
+      message.error(data.message);
         else
         {
           localStorage.setItem("creator",JSON.stringify(result));
-          window.location='/createtournament';
+          window.location='/adminpanel';
         }
 
   }
