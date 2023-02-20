@@ -17,6 +17,9 @@ import Tennis from './Components/Tennis';
 import SideBar from './Components/SideBar';
 import Register from './Components/Register';
 import Admin from './Components/Admin';
+import ForgetPassword from './Components/ForgetPassword';
+import OTP from './Components/OTP';
+import ResetPassword from './Components/ResetPassword';
 
 
 
@@ -46,9 +49,11 @@ function App() {
           <Route  exact path='/individualevents/event3' element={<Swimming/>}></Route>  
           <Route  exact path='/individualevents/event4' element={<Carrom/>}></Route>  
           <Route  exact path='/individualevents/event5' element={<Tennis/>}></Route>  
-          
+          <Route  exact path='/individualevents/event5' element={<Tennis/>}></Route> 
+          <Route  exact path='/forgetpassword' element={<ForgetPassword/>}></Route> 
       
-      
+          <Route  exact path='/otp' element={<OTP/>}></Route> 
+          <Route  exact path='/resetpassword' element={<ResetPassword/>}></Route> 
         </Routes>
         </BrowserRouter>
       

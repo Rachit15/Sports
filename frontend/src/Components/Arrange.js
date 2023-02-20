@@ -57,10 +57,14 @@ const Arrange = () => {
               <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Email address' id='formControlLg' type='email' size="lg" value={email} onChange={(e) => setEmail(e.target.value)} />
               <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Password' id='formControlLg' type='password' size="lg" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-              <p className="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+              
+
               <button type="button" className="btn btn-primary text-uppercase btn-md shadow  rounded"
                 style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }} onClick={collectData} as={Link} to='/createtournament' >Login</button>
-
+                <Link to='/forgetpassword'>
+<button type="button" className="btn btn-success text-uppercase btn-md shadow  rounded"
+                style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }}   >Forgot password</button>
+                </Link>
               <div className='d-flex flex-row mt-3 mb-5'>
                 <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
                   <MDBIcon fab icon='facebook-f' size="lg" />

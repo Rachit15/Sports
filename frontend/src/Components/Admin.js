@@ -5,20 +5,36 @@ import { Link } from 'react-router-dom';
 const Admin = () => {
     const[games,setGames]=useState([])
   useEffect(()=>{
+    
  getGames()
   },[]);
+ 
   const getGames=async()=>{
-    let  result=await fetch("http://localhost:8080/individualevents/event1",{
+    try{
+    let  result=await fetch("http://localhost:8080/adminpanel",{
       method:'post',
       body:JSON.stringify({games}),
       headers:{
+       // Accept:'application/json',
           'Content-Type':'application/json'
-      }
+      },
+      //credentials:"include"
 
   });
   let data=await result.json();
+  if(data.status===401)
+  {
+    console.log("big error");
+    window.location('/arrange')
+  }
   setGames(data);
   console.log(data);
+}
+catch(err)
+{
+  console.log(err);
+}
+  
   }
   return (
     <>
