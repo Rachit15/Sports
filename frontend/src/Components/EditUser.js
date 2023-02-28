@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+
+import React, { useState,useEffect } from 'react';
+import axios from 'axios';
 import "react-datepicker/dist/react-datepicker.css"
 import {
   MDBBtn,
@@ -13,10 +15,8 @@ import {
    //MDBSelect
 }
 from 'mdb-react-ui-kit';
-import { MDBSelect, MDBSelectOption, MDBSelectOptions, MDBSelectInput } from 'mdbreact';
-
-
 import DatePicker from 'react-datepicker';
+import { useParams } from 'react-router-dom';
 
 
 const options = [
@@ -42,8 +42,11 @@ const options = [
   }
 
 ];
-const CreateTournament = () => {
+const EditUser = () => {
+    const {id}=useParams();
+    console.log(id);
     console.log("Hi");
+    
     const [tournamentname,setTournamentname]=useState("");
   const [tournamentplace,setTournamentplace]=useState("");
     const [startDate, setStartDate] = React.useState(new Date());
@@ -53,12 +56,43 @@ const CreateTournament = () => {
   const [winner,setWinner]=useState("");
   const [Runner1,setRunner1]=useState("");
   const [Runner2,setRunner2]=useState("");
+  // const[tournament,setTournament]=useState({})
+
+  useEffect(()=>{
+loadUser();
+  },[]);
+  const loadUser=async()=>{
+    console.log("In Load User")
+    const result=await fetch(`/user/${id}`,{
+      method:'get',
+      
+      headers:{
+        Accept:'application/json',
+          'Content-Type':'application/json'
+      },
+      
+
+  });
+  let data=await result.json();
+  console.log(data);
+    setTournamentname(data.tournamentname);
+     setTournamentplace(data.tournamentplace);
+    // setStartDate(data.startDate);
+     setSelectedOption(data.selectedOption);
+     setTournamenthost(data.tournamenthost);
+     setWinner(data.winner);
+     setRunner1(data.Runner1);
+     setRunner2(data.Runner2);
+  
+
+  }
   const handleSelect = (selected) => {
     setSelectedOption(selected[0].value);
   }
   const handleOptionChange = (changeEvent) => {
     setTournamentplace(changeEvent.target.value);
 }
+
 
   const collectData = async () => {
     console.log("hello hy");
@@ -71,20 +105,10 @@ const CreateTournament = () => {
       }
 
   });
-  let data=await result.json();
-  if(!data||result.status===422)
-  console.log("error");
-  else
-  {
-    
-    window.location='/adminpanel';
-  }
-   console.log(result);
-  }
+}
   return (
     <>
-      
-    <MDBContainer fluid className='bg-dark'>
+      <MDBContainer fluid className='bg-dark'>
 
 <MDBRow className='d-flex justify-content-center align-items-center h-100'>
   <MDBCol>
@@ -106,7 +130,7 @@ const CreateTournament = () => {
             <MDBRow>
 
               <MDBCol md='6'>
-                <MDBInput wrapperClass='mb-4' label='Tournament Name' size='lg'  type='text' value={tournamentname} onChange={(e) => setTournamentname(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Tournament Name' size='lg'  type='text'name='tournamentname' value={tournamentname} onChange={(e) => setTournamentname(e.target.value)}/>
               </MDBCol>
               {/* <MDBCol md='6'>
       <MDBSelect options={options} selected={tournamentplace} label='Sport' getValue={handleSelect} />
@@ -176,9 +200,8 @@ const CreateTournament = () => {
 </MDBContainer>
 
     </>
-      
     
   )
 }
 
-export default CreateTournament;
+export default EditUser;

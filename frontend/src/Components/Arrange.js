@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import './Arrange.css';
 import Button from 'react-bootstrap/esm/Button';
 import { Link,useNavigate } from 'react-router-dom';
@@ -14,15 +14,15 @@ import {
   MDBInput,
   MDBIcon
 }from  'mdb-react-ui-kit';
-const Arrange = () => {
+const Arrange = ({setisLoggedin}) => {
   
-    
+    // const {state,dispatch}=useContext(UserContext);
     const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const collectData = async () => {
      console.log("hello ");
      console.log(email, password);
-     let  result=await fetch("http://localhost:8080/arrange",{
+     let  result=await fetch("/arrange",{
             method:'post',
             body:JSON.stringify({email,password}),
             headers:{
@@ -35,6 +35,9 @@ const Arrange = () => {
       message.error(data.message);
         else
         {
+          console.log("In login");
+           setisLoggedin(true);
+          
           localStorage.setItem("creator",JSON.stringify(result));
           window.location='/adminpanel';
         }
@@ -62,8 +65,8 @@ const Arrange = () => {
               <button type="button" className="btn btn-primary text-uppercase btn-md shadow  rounded"
                 style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }} onClick={collectData} as={Link} to='/createtournament' >Login</button>
                 <Link to='/forgetpassword'>
-<button type="button" className="btn btn-success text-uppercase btn-md shadow  rounded"
-                style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }}   >Forgot password</button>
+<input type="submit" className="btn btn-success text-uppercase btn-md shadow  rounded"
+                style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }}  value="Forgot Password" />
                 </Link>
               <div className='d-flex flex-row mt-3 mb-5'>
                 <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>

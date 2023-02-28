@@ -8,11 +8,12 @@ const Authenticate=async(req,res,next)=>{
         if(!creators){throw new Error('User not found');}
         req.token=token;
         req.creators=creators;
-        req.creatorID=creator._id;
+        req.creatorID=creators._id;
         next();
         }
     catch(err)
     {
+        console.log(err);
         res.status(401).send('Unauthorized:No token Provided')
         console.log("Not authenticated");
     }

@@ -21,13 +21,13 @@ router.post('/register',async(req,res)=>{
     const {name,username,email,contact,password}=req.body;
     if(!name||!email||!username||!email||!contact||!password)
     {
-        return res.status(422).json({error:"Please fill all details"});
+        return res.status(400).json({message:"Please fill all details"});
     }
     try{
         const userExist=await Creator.findOne({email:email});
     if(userExist)
     {
-        return res.status(422).json({error:"User already exist"});
+        return res.status(422).json({message:"User already exist"});
     }
     const creator =new Creator({name,username,email,contact,password});
    console.log(creator.password);
@@ -67,18 +67,25 @@ router.post('/arrange',async(req,res)=>
             
         }
         else{
-            res.json({message:"Signed Successfully"});
-            console.log("Signed in successfully")
-        }
-    }
-    else{
-        const  token=await loggedin.generateAuthToken();
+            const  token=await loggedin.generateAuthToken();
         console.log(token);
          res.cookie("jwtoken",token,{
             expires:new Date(Date.now()+12000000) ,
             httpOnly:true
             
-         })
+         });
+            res.status(200).json({message:"Signed Successfully"});
+            console.log("Signed in successfully")
+        }
+    }
+    else{
+        // const  token=await loggedin.generateAuthToken();
+        // console.log(token);
+        //  res.cookie("jwtoken",token,{
+        //     expires:new Date(Date.now()+12000000) ,
+        //     httpOnly:true
+            
+         
        return res.status(400).json({message:"Invalid Credentials"});
         console.log("Not Correct Email");
     }
@@ -131,24 +138,30 @@ let x=s+"TS"+d.initvar;
    
 });
 router.post('/individualevents/event1',async(req,res)=>{
-    const game= await Tournament.find({tournamentplace:"Badminton"});
+
+     const curr=new Date();
+     console.log(curr);
+     const game= await Tournament.find({tournamentplace:"Badminton",startDate:{$gte:curr}});
+    
+    console.log(game);
     if(game.length>0)
     {
         res.send(game);
     }
-    // else{
-    //     return res.status(422).json({error:"Please fill all details"});
-    // }
-});
+     else{
+        return res.status(422).json({message:"No upcoming Badminton events"});
+    
+}});
 router.post('/participant',async(req,res)=>{
     console.log("Hi in Participant");
     const {Name,ID,BirthDate,Gender,TournamentID,email,Contactno}=req.body;
    
     try{
-//   if(!tournamentname||!tournamentplace||!startDate||!selectedOption||!tournamenthost||!winner||!Runner1||!Runner2)
-//   {
-//     return res.status(422).json({message:"Plz fill all details"});
-//   }
+    if(!Name||!ID||!BirthDate||!Gender||!TournamentID||!email||!Contactno)
+  {
+    console.log("hi");
+    return res.status(422).json({message:"Plz fill all details"});
+   }
     
 
     const participant =new Participants({Name,ID,BirthDate,Gender,TournamentID,email,Contactno});
@@ -177,15 +190,18 @@ router.post('/participant',async(req,res)=>{
     }
    
 });
-router.post('/adminpanel',async(req,res)=>{
+router.post('/adminpanel',authenticate,async(req,res)=>{
+    console.log(
+        "In adminpanel"
+    )
     const game= await Tournament.find();
     if(game.length>0)
     {
-        res.send(game);
+        res.status(200).send(game);
     }
-    // else{
-    //     return res.status(422).json({error:"Please fill all details"});
-    // }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
 });
 router.post('/forget',async(req,res)=>{
     const{email}=req.body;
@@ -251,5 +267,18 @@ router.post('/resetpassword',async(req,res)=>{
         return res.status(400).json({message:"Error:Both Fields must be same"});
     }
     
+});
+router.post('/logout',async(req,res)=>{
+    res.clearCookie("jwtoken",{path:"/"});
+    res.status(200).json({message:"Logout Successfully"});
+})
+router.get(`/user/:id`,async (req, res) => {
+    console.log("Hi in edituser");
+    const id=req.params.id;
+    const result=await Tournament.findOne({TID:id});
+    console.log(result);
+    res.send(result);
+    console.log(id);
+    // other code to edit the user and send a response back to the client
 });
 module.exports=router;

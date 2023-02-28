@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import './Admin.css';
 import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
-const Admin = () => {
+const Admin = ({setisLoggedin}) => {
     const[games,setGames]=useState([])
   useEffect(()=>{
     
@@ -11,35 +11,38 @@ const Admin = () => {
  
   const getGames=async()=>{
     try{
-    let  result=await fetch("http://localhost:8080/adminpanel",{
+    let  result=await fetch("/adminpanel",{
       method:'post',
       body:JSON.stringify({games}),
       headers:{
-       // Accept:'application/json',
+        Accept:'application/json',
           'Content-Type':'application/json'
       },
-      //credentials:"include"
+      credentials:"include"
 
   });
   let data=await result.json();
-  if(data.status===401)
+  console.log(data);
+  if(result.status===401)
   {
     console.log("big error");
-    window.location('/arrange')
+    window.location='/arrange';
   }
+  setisLoggedin(true);
   setGames(data);
   console.log(data);
 }
 catch(err)
 {
-  console.log(err);
+  window.location='/arrange';
 }
   
   }
   return (
     <>
+      
      <div className="table-container">
-                <table>
+                <table style={{paddingBottom:"5px"}}>
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -56,17 +59,23 @@ catch(err)
                 <td >{idx+1}</td>
                 
                             <td>{val.tournamentname}</td>
-                            <td><a href="#" class="btn">Update</a></td>
+                            {/* <Link to='/edituser'> */}
+                            <td><a href={`/user/edit/${val.TID}`} class="btn">Update</a></td>
+                            {/* </Link> */}
+                            {/* <Link to='/edituser'> */}
                             <td><a href="#" class="btn">Delete</a></td>
-
+                            {/* </Link> */}
               </tr>
             </>
           )
         })
       }
-           <Button as={Link} to='/createtournament'>Register</Button>          
-                </table>
-            </div>
+      </table>
+      </div>
+      
+           <Button as={Link} style={{marginLeft:"50%",paddingTop:"5px"}}to='/createtournament'>Register</Button>          
+                 
+            
     </>
   )
 }

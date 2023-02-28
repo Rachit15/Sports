@@ -27,8 +27,8 @@ table {
 }
 
 tr:nth-of-type(odd) {
-    background-color: #006cc6;
-    color: #fff;
+    background-color:white;
+    color: #333;
 }
 
 tr:nth-of-type(even) {
@@ -37,7 +37,7 @@ tr:nth-of-type(even) {
 }
 
 th {
-    background-color: #Dc005A;
+    background-color:black;
     color: #fff;
     font-weight: 800;
     font-size: 20px;

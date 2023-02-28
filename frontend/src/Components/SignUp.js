@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import './SignUp.CSS';
+import { Form, Input, message } from 'antd';
 import {
   MDBBtn,
   MDBContainer,
@@ -31,8 +32,10 @@ const SignUp = () => {
     
             });
             let data=await result.json();
-        if(!data||result.status===422)
-        console.log("error");
+        if(result.status===422)
+        message.error(data.message);
+        else if(result.status===400)
+        message.error(data.message);
         else
         {
           window.location='/arrange';
@@ -46,15 +49,15 @@ const SignUp = () => {
 
   return (
     <>
-    <MDBContainer fluid className='p-4 background-radial-gradient overflow-hidden'>
+    <MDBContainer fluid className='p-6 background-radial-gradient overflow-hidden' >
 
       <MDBRow>
 
         <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
 
           { <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{color: 'hsl(218, 81%, 95%)'}}>
-            Create your own <br />
-            <span style={{color: 'hsl(218, 81%, 75%)'}}>Tournament here</span>
+            <br />
+            <span style={{color: 'hsl(218, 81%, 75%)'}}></span>
           </h1> }
 
           <p className='px-3' style={{color: 'hsl(218, 81%, 85%)'}}>
@@ -80,33 +83,19 @@ const SignUp = () => {
                   <MDBInput wrapperClass='mb-4' label=' Name' id='form2' type='text' value={name} onChange={(e)=>setName(e.target.value)}/>
                 </MDBCol>
               </MDBRow>
-              <MDBInput wrapperClass='mb-4' label='Contact' id='form3' type='text'  value={contact} onChange={(e)=>setContact(e.target.value)}/>
+              <MDBInput wrapperClass='w-5 mb-4' label='Contact' id='form3' type='text'  value={contact} onChange={(e)=>setContact(e.target.value)}/>
               <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
               <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
 
               
 
-              <MDBBtn className='w-100 mb-4' size='md' onClick={collectData}>sign up</MDBBtn>
+              <MDBBtn className='w-30 ' size='lg' style={{ marginLeft:'50%'}} onClick={collectData}>sign up</MDBBtn>
 
               <div className="text-center">
 
                
 
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='facebook-f' size="sm"/>
-                </MDBBtn>
-
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='twitter' size="sm"/>
-                </MDBBtn>
-
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='google' size="sm"/>
-                </MDBBtn>
-
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='github' size="sm"/>
-                </MDBBtn>
+                
 
               </div>
 

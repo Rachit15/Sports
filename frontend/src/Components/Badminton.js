@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
+import { Form, Input, message } from 'antd';
 const Badminton = () => {
   <h1>Badminton</h1>
   const[games,setGames]=useState([])
@@ -22,8 +23,14 @@ const Badminton = () => {
 
   });
   let data=await result.json();
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
   setGames(data);
   console.log(data);
+  }
   }
   
   
@@ -65,7 +72,7 @@ const Badminton = () => {
         })
       }
     </Table>
-    <Button as={Link} to='/participant'>Register</Button>
+    <Button as={Link} style={{marginLeft:"50%"}}to='/participant'>Register</Button>
     </>
   )
 }

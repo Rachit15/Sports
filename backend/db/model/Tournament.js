@@ -10,7 +10,7 @@ const TournamentSchema=new mongoose.Schema({
             required:true},
 tournamentplace:{type:String,
         required:true},
-startDate:{type:String,
+startDate:{type:Date,
         required:true},
         selectedOption:{type:String,
         required:true},
