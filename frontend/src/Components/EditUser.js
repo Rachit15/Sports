@@ -1,7 +1,8 @@
 
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
-import "react-datepicker/dist/react-datepicker.css"
+import "react-datepicker/dist/react-datepicker.css";
+import {message} from "antd";
 import {
   MDBBtn,
   MDBContainer,
@@ -73,6 +74,7 @@ loadUser();
       
 
   });
+  
   let data=await result.json();
   console.log(data);
     setTournamentname(data.tournamentname);
@@ -97,7 +99,7 @@ loadUser();
   const collectData = async () => {
     console.log("hello hy");
     console.log(tournamentname, tournamentplace,tournamenthost,winner,Runner1,Runner2,startDate,selectedOption);
-    const  result=await fetch("http://localhost:8080/createtournament",{
+    const  result=await fetch("/createtournament/edit",{
       method:'post',
       body:JSON.stringify({tournamentname, tournamentplace,tournamenthost,startDate,selectedOption,winner,Runner1,Runner2}),
       headers:{
@@ -105,6 +107,15 @@ loadUser();
       }
 
   });
+  const data=await result.json();
+  console.log(data.message);
+  if(result.status===200)
+  {
+    message.success(data.message);
+    window.location='/adminpanel'
+  }
+  console.log(data);
+
 }
   return (
     <>

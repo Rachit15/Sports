@@ -23,6 +23,12 @@ import ResetPassword from './Components/ResetPassword';
 
 import Logout from './Components/Logout';
 import EditUser from './Components/EditUser';
+import PostResult from './Components/PostResult';
+import BadmintonResult from './Components/BadmintonResult';
+import ChessResult from './Components/ChessResult';
+import CarromResult from './Components/CarromResult';
+import SwimmingResult from './Components/SwimmingResult';
+import TennisResult from './Components/TennisResult';
 
 
 
@@ -57,13 +63,20 @@ const App=()=> {
           <Route  exact path='/individualevents/event3' element={<Swimming/>}></Route>  
           <Route  exact path='/individualevents/event4' element={<Carrom/>}></Route>  
           <Route  exact path='/individualevents/event5' element={<Tennis/>}></Route>  
-          <Route  exact path='/individualevents/event5' element={<Tennis/>}></Route> 
+           
+          <Route  exact path='/individualevents/event1/result' element={<BadmintonResult/>}></Route>  
+          <Route  exact path='/individualevents/event2/result' element={<ChessResult/>}></Route>  
+          <Route  exact path='/individualevents/event3/result' element={<SwimmingResult/>}></Route>  
+          <Route  exact path='/individualevents/event4/result' element={<CarromResult/>}></Route>  
+          <Route  exact path='/individualevents/event5/result' element={<TennisResult/>}></Route>  
+         
           <Route  exact path='/forgetpassword' element={<ForgetPassword/>}></Route> 
       
           <Route  exact path='/otp' element={<OTP/>}></Route> 
           
           <Route  exact path='/logout' element={<Logout/>}></Route> 
           <Route  exact path='/user/edit/:id' element={<EditUser/>}></Route> 
+          <Route  exact path='/postresult' element={<PostResult/>}></Route> 
         </Routes>
         </BrowserRouter>
         {/* </UserContext.Provider> */}

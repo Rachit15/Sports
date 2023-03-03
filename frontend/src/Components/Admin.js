@@ -2,7 +2,10 @@ import React,{useEffect,useState} from 'react';
 import './Admin.css';
 import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const Admin = ({setisLoggedin}) => {
+  const {id}=useParams();
+  console.log(id);
     const[games,setGames]=useState([])
   useEffect(()=>{
     
@@ -38,6 +41,21 @@ catch(err)
 }
   
   }
+  const Delete=async()=>{
+    console.log("hi");
+    const result=await fetch(`/user/delete/${id}`,{
+      method:'get',
+      
+      headers:{
+        Accept:'application/json',
+          'Content-Type':'application/json'
+      },
+      
+
+  });
+const data=await result.json();
+window.location='/adminpanel'
+  }
   return (
     <>
       
@@ -63,7 +81,7 @@ catch(err)
                             <td><a href={`/user/edit/${val.TID}`} class="btn">Update</a></td>
                             {/* </Link> */}
                             {/* <Link to='/edituser'> */}
-                            <td><a href="#" class="btn">Delete</a></td>
+                            <td><a href={`/user/delete/${val.TID}`} class="btn" onClick={Delete}>Delete</a></td>
                             {/* </Link> */}
               </tr>
             </>
@@ -80,4 +98,4 @@ catch(err)
   )
 }
 
-export default Admin
+export default Admin;

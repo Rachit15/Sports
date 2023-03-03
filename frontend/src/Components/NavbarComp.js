@@ -183,6 +183,7 @@ const NavbarComp = ({isLoggedin}) => {
               </>
             )}
             <Nav.Link as={Link} to="/createtournament">Add Tournament</Nav.Link>
+            <Nav.Link as={Link} to="/postresult">Post Result</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

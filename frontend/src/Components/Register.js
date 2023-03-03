@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "react-datepicker/dist/react-datepicker.css"
 import {
   MDBBtn,
@@ -15,8 +15,23 @@ import {
 from 'mdb-react-ui-kit';
 
 import DatePicker from 'react-datepicker';
+import {
+  Button,
+  Checkbox,
+  Col,
+  Form,
+  InputNumber,
+  Radio,
+  Rate,
+  Row,
+  Select,
+  Slider,
+  Switch,
+  Upload,
+  message
+} from 'antd';
 
-
+const { Option } = Select;
 const Register = () => {
   console.log("Hi");
      const [Name,setName]=useState("");
@@ -27,6 +42,30 @@ const Register = () => {
   const [TournamentID,setTournamentID]=useState("");
    const [email,setEmail]=useState("");
   const [Contactno,setContactno]=useState("");
+  const[games,setGames]=useState([]);
+  useEffect(()=>{
+ getGames()
+  },[]);
+  const getGames=async()=>{
+    let  result=await fetch("http://localhost:8080/individualevents/event1",{
+      method:'post',
+      body:JSON.stringify({games}),
+      headers:{
+          'Content-Type':'application/json'
+      }
+
+  });
+  let data=await result.json();
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+  setGames(data);
+  console.log(data);
+  }
+  }
+  
 
   const handleOptionChange = (changeEvent) => {
     setGender(changeEvent.target.value);
@@ -45,7 +84,7 @@ const Register = () => {
    });
   let data=await result.json();
   if(!data||result.status===422)
-  console.log("error");
+  message.error(data.message);
   else
    {
     
@@ -83,7 +122,7 @@ const Register = () => {
               </MDBCol>
 
             <  MDBCol md='6'>
-                <MDBInput wrapperClass='mb-4' label='CollegeID' size='lg'  type='text' 
+                <MDBInput wrapperClass='mb-4' label='Department' size='lg'  type='text' 
                  value={ID} onChange={(e) => setID(e.target.value)}
                 />
               </MDBCol>
@@ -126,12 +165,35 @@ const Register = () => {
               />
               
             </div>
-
+            <Form.Item style={{paddingTop:"50px"}}
+     
+     name="Tournament Name"
+     label={<span style={{ color: 'black',fontSize:'26px' }}>Tournament Name
+     </span>}
+     
+     
+   >
+        <Select placeholder="Please select a winner" style={{ width: 150 }} onChange={(value) => setTournamentID(value)}>
+        {
+       games.map((val,idx) => {
+         return(
+           <>
+             <Option value={val.tournamentname}>{val.tournamentname}</Option>
+         
+           </>
+         )
+       })
+     }
+         
+       </Select>
+     
+   </Form.Item> 
+   
            
-
+{/* 
             <MDBInput wrapperClass='mb-4' label='Tournament Name' size='lg' id='form4' type='text'
             value={TournamentID} onChange={(e) => setTournamentID(e.target.value)}
-            />
+            /> */}
             <MDBInput wrapperClass='mb-4' label='Email' size='lg' id='form5' type='text'
              value={email} onChange={(e) => setEmail(e.target.value)}
             />

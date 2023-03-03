@@ -1,4 +1,3 @@
-
 import React,{useEffect,useState} from 'react';
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
@@ -7,14 +6,15 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
 import { Form, Input, message } from 'antd';
-const Badminton = () => {
-  <h1>Badminton</h1>
+
+const BadmintonResult = () => {
   const[games,setGames]=useState([]);
   useEffect(()=>{
  getGames()
   },[]);
+  console.log(games);
   const getGames=async()=>{
-    let  result=await fetch("http://localhost:8080/individualevents/event1",{
+    let  result=await fetch("http://localhost:8080/individualevents/event1/result",{
       method:'post',
       body:JSON.stringify({games}),
       headers:{
@@ -32,23 +32,20 @@ const Badminton = () => {
   console.log(data);
   }
   }
-  
-  
-
   return (
     <>
-    <Table striped bordered hover variant='dark'  borderColor="success">
+     <Table striped bordered hover variant='dark'  borderColor="success">
       
       <tr>
         <th>Sr No.</th>
-        <th>ID</th>
+        
         <th>Tournament Name</th>
-        <th>type</th>
-        <th>Date</th>
-        <th>Host Department</th>
-        <th> Winner Price</th>
-        <th>RunnerUp1 Price</th>
-        <th>RunnerUp2 Price</th>
+        
+        
+        
+        <th> Winner</th>
+        <th>RunnerUp1</th>
+        <th>RunnerUp2</th>
 
       </tr>
       {
@@ -57,24 +54,23 @@ const Badminton = () => {
             <>
               <tr >
                 <td >{idx+1}</td>
-                <td>{val.TID}</td>
-                <td>{val.tournamentname}</td>
-                <td>{val.selectedOption}</td>
-                <td>{val.startDate.substring(0,10)}</td>
-                <td>{val.tournamenthost}</td>
-                <td>{val.winner}</td>
-                <td>{val.Runner1}</td>
-                <td>{val.Runner2}</td>
+                
+                <td>{val.selectedTournament}</td>
+            
+              <td>{val.selectedWinner}</td>
+                <td>{val.selectedRunner1}</td>
+                <td>{val.selectedRunner2}</td>
 
               </tr>
             </>
           )
         })
       }
-    </Table>
-    <Button as={Link} style={{marginLeft:"50%"}}to='/participant'>Register</Button>
+      </Table>
     </>
+      
+    
   )
 }
 
-export default Badminton;
+export default BadmintonResult

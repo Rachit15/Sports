@@ -4,6 +4,7 @@ const Creator=require('../db/model/Creator');
 const Tournament=require('../db/model/Tournament');
 const ResourceUser=require('../db/model/Resource');
 const Participants=require('../db/model/Participant');
+const Result=require('../db/model/Result');
 const bcrypt=require('bcryptjs');
 const cookie=require('cookie');
 const jwt=require('jsonwebtoken');
@@ -281,4 +282,105 @@ router.get(`/user/:id`,async (req, res) => {
     console.log(id);
     // other code to edit the user and send a response back to the client
 });
+router.post('/createtournament/edit',async(req,res)=>{
+    console.log("Hi in edit and upadate");
+    const {tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2}=req.body;
+   
+    try{
+  if(!tournamentname||!tournamentplace||!startDate||!selectedOption||!tournamenthost||!winner||!Runner1||!Runner2)
+  {
+    return res.status(422).json({message:"Plz fill all details"});
+  }
+    // const tournament =new Tournament({tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2});
+    
+  const result=await Tournament.findOneAndUpdate({tournamentname:tournamentname},{tournamentplace:tournamentplace,startDate:startDate,selectedOption:selectedOption,tournamenthost:tournamenthost,winner:winner,Runner1:Runner1,Runner2:Runner2})
+console.log(result);
+res.status(200).json({message:"Updated Successfully"});
+    
+    }
+    catch(err){
+        console.log(err);
+    }
+   
+});
+router.get(`/user/delete/:id`,async (req, res) => {
+    console.log("Hi in delete");
+    const id=req.params.id;
+    console.log(id);
+    const result=await Tournament.deleteOne({TID:id});
+    console.log(result);
+   res.status(200).json({message:"Deleted Successfully"})
+    // other code to edit the user and send a response back to the client
+});
+router.post('/posttournamentname',async(req,res)=>{
+    console.log(
+        "In posttournament name"
+    )
+    const game= await Tournament.find();
+    console.log(game);
+    if(game.length>0)
+    {
+        res.status(200).send(game);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/postparticipant',async(req,res)=>{
+    console.log(
+        "In postparticipant"
+    )
+    const participant= await Participants.find();
+    console.log("Displaying Participants")
+    console.log(participant);
+    if(participant.length>0)
+    {
+        res.status(200).send(participant);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/result',async(req,res)=>{
+    console.log("Hi in Result");
+    console.log(req.body);
+    const {sport,selectedTournament,selectedWinner,selectedRunner1,selectedRunner2}=req.body;
+    console.log(sport);
+    console.log(selectedTournament);
+    console.log(selectedWinner);
+    console.log(selectedRunner1);
+    console.log(selectedRunner2);
+    if(!sport||!selectedTournament||!selectedWinner||!selectedRunner1||!selectedRunner2)
+    {
+        console.log("Checking");
+        return res.status(400).json({message:"Please fill all details"});
+    }
+   
+    
+    
+    const result =new Result({sport,selectedTournament,selectedWinner,selectedRunner1,selectedRunner2});
+   
+    let results=await result.save();
+    console.log(results);
+    res.send(results);
+
+    
+    
+   
+});
+router.post('/individualevents/event1/result',async(req,res)=>{
+
+    const curr=new Date();
+    console.log(curr);
+    const game= await Result.find({sport:"Badminton"});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No upcoming Badminton events"});
+   
+}});
 module.exports=router;
