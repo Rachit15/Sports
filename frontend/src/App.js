@@ -29,12 +29,21 @@ import ChessResult from './Components/ChessResult';
 import CarromResult from './Components/CarromResult';
 import SwimmingResult from './Components/SwimmingResult';
 import TennisResult from './Components/TennisResult';
+import Sample from './Components/Sample';
+import ChessParticipant from './Components/ChessParticipant';
+import CarromParticipant from './Components/CarromParticipant';
+import SwimmingParticipant from './Components/SwimmingParticipant';
+import TennisParticipant from './Components/TennisParticipant';
+import Stats from './Components/Stats';
+import Report from './Components/Report';
+import { Layout } from 'antd';
 
-
+import "antd/dist/reset.css";
 
 
 
 // export const UserContext=createContext();
+const{Footer}=Layout;
 const App=()=> {
   //  const [state,dispatch]=useReducer(reducer,initialState);
    const [isLoggedin,setisLoggedin]=useState(false);
@@ -60,25 +69,60 @@ const App=()=> {
           <Route  exact path='/participant' element={<Register/>}></Route>  
           <Route  exact path='/individualevents/event1' element={<Badminton/>}></Route>  
           <Route  exact path='/individualevents/event2' element={<Chess/>}></Route>  
-          <Route  exact path='/individualevents/event3' element={<Swimming/>}></Route>  
-          <Route  exact path='/individualevents/event4' element={<Carrom/>}></Route>  
+          <Route  exact path='/individualevents/event3' element={<Carrom/>}></Route>  
+          <Route  exact path='/individualevents/event4' element={<Swimming/>}></Route>  
           <Route  exact path='/individualevents/event5' element={<Tennis/>}></Route>  
            
           <Route  exact path='/individualevents/event1/result' element={<BadmintonResult/>}></Route>  
           <Route  exact path='/individualevents/event2/result' element={<ChessResult/>}></Route>  
-          <Route  exact path='/individualevents/event3/result' element={<SwimmingResult/>}></Route>  
-          <Route  exact path='/individualevents/event4/result' element={<CarromResult/>}></Route>  
+          <Route  exact path='/individualevents/event3/result' element={<CarromResult/>}></Route>  
+          <Route  exact path='/individualevents/event4/result' element={<SwimmingResult/>}></Route>  
           <Route  exact path='/individualevents/event5/result' element={<TennisResult/>}></Route>  
          
           <Route  exact path='/forgetpassword' element={<ForgetPassword/>}></Route> 
       
           <Route  exact path='/otp' element={<OTP/>}></Route> 
-          
+          <Route  exact path='/resetpassword' element={<ResetPassword/>}></Route> 
           <Route  exact path='/logout' element={<Logout/>}></Route> 
           <Route  exact path='/user/edit/:id' element={<EditUser/>}></Route> 
-          <Route  exact path='/postresult' element={<PostResult/>}></Route> 
+          <Route  exact path='/user/delete/:id' element={<Admin/>}></Route> 
+          <Route  exact path='/postresult' element={<PostResult/>}></Route>
+          <Route  exact path='/chessparticipant' element={<ChessParticipant/>}></Route>   
+          <Route  exact path='/carromparticipant' element={<CarromParticipant/>}></Route>
+          <Route  exact path='/swimmingparticipant' element={<SwimmingParticipant/>}></Route> 
+        
+          <Route  exact path='/tennisparticipant' element={<TennisParticipant/>}></Route> 
+          <Route  exact path='/viewstats' element={<Stats/>}></Route> 
+          <Route  exact path='/report' element={<Report/>}></Route> 
         </Routes>
         </BrowserRouter>
+        { <Footer style={{ textAlign: "center", backgroundColor: "black" }}>
+          <p className="text-center" style={{ color: "white", padding: "5px" }}>
+            Copyright @2023 | Designed With by <a href="#">StayFit</a>
+          </p>
+          <ul className="social-icons" style={{ padding: "2px" ,color:"red"}}>
+            <li>
+              <a className="facebook" href="#">
+                <i class="fa fa-facebook"></i>
+              </a>
+            </li>
+            <li>
+              <a className="twitter" href="https://mobile.twitter.com/jay_24_thakkar">
+                <i class="fa fa-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a className="instagram" href="#">
+                <i class="fa fa-instagram"></i>
+              </a>
+            </li>
+            <li>
+              <a className="linkedin" href="#">
+                <i class="fa fa-linkedin"></i>
+              </a>
+            </li>
+          </ul>
+        </Footer> }
         {/* </UserContext.Provider> */}
       </>  
     

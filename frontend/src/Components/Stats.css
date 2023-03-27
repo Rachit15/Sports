@@ -1,0 +1,23 @@
+ 
+   .chart-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem;
+  padding: 5rem;
+}
+  
+  .container {
+    display: flex;
+}
+
+.rachit{
+  border-radius: 20px;
+  background-color: #0284c7;
+  padding: 5rem;
+  /* height: 80%; */
+  /* width: 80%; */
+}
+
+canvas {
+  height: 50rem;
+}

@@ -18,7 +18,7 @@ import {
 const { Option } = Select;
 
 const PostResult = () => {
-  console.log("Hi");
+  
   const [sport,setSport]=useState('');
     const [selectedTournament, setSelectedTournament] = useState('');
     const [selectedWinner, setSelectedWinner] = useState('');
@@ -26,22 +26,147 @@ const PostResult = () => {
     const [selectedRunner2, setSelectedRunner2] = useState('');
     const[games,setGames]=useState([]);
     const [participant,setParticipant]=useState([]);
+    console.log('Sport',sport);
   useEffect(()=>{
- getGames();
- getParticipant();
- 
-  },[]);
+    console.log("Hi before if");
+    if(sport=='Badminton')
+    {
+      console.log("In useEffect")
+ getBadmintonGames();
+  getParticipant();
+    }
+    if(sport=='Chess')
+    {
+      console.log("In useEffect")
+ getChessGames();
+  getChessParticipant();
+    }
+    if(sport=='Carrom')
+    {
+      console.log("In useEffect")
+ getCarromGames();
+  getCarromParticipant();
+    }
+    if(sport=='Swimming')
+    {
+      console.log("In useEffect")
+ getSwimmingGames();
+  getSwimmingParticipant();
+    }
+    if(sport=='Tennis')
+    {
+      console.log("In useEffect")
+ getTennisGames();
+  getTennisParticipant();
+    }
+  },[sport]);
   const uniqueParticipant = participant.filter((game, index, self) =>
   index === self.findIndex((g) => g.Name === game.Name )
 );
-console.log(uniqueParticipant);
-  console.log(games);
-  console.log(participant);
-  const getGames=async()=>{
+ console.log(uniqueParticipant);
+   console.log(games);
+   console.log(participant);
+  const getBadmintonGames=async()=>{
     console.log("Hi in getGames")
-    let  result=await fetch("http://localhost:8080/posttournamentname",{
+    let  result=await fetch("http://localhost:8080/posttournamentname/badminton",{
       method:'post',
-      body:JSON.stringify(),
+      body:JSON.stringify({sport}),
+      headers:{
+          'Content-Type':'application/json'
+      }
+
+  });
+  let data=await result.json();
+   console.log(data);
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+    console.log("In function")
+  setGames(data);
+  console.log("After function");
+
+  }
+  
+  }
+  const getChessGames=async()=>{
+    console.log("Hi in getGames")
+    let  result=await fetch("http://localhost:8080/posttournamentname/chess",{
+      method:'post',
+      body:JSON.stringify({sport}),
+      headers:{
+          'Content-Type':'application/json'
+      }
+
+  });
+  let data=await result.json();
+   console.log(data);
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+    console.log("In function")
+  setGames(data);
+  console.log("After function");
+
+  }
+  
+  }
+  const getCarromGames=async()=>{
+    console.log("Hi in getGames")
+    let  result=await fetch("http://localhost:8080/posttournamentname/carrom",{
+      method:'post',
+      body:JSON.stringify({sport}),
+      headers:{
+          'Content-Type':'application/json'
+      }
+
+  });
+  let data=await result.json();
+   console.log(data);
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+    console.log("In function")
+  setGames(data);
+  console.log("After function");
+
+  }
+  
+  }
+  const getSwimmingGames=async()=>{
+    console.log("Hi in getGames")
+    let  result=await fetch("http://localhost:8080/posttournamentname/swimming",{
+      method:'post',
+      body:JSON.stringify({sport}),
+      headers:{
+          'Content-Type':'application/json'
+      }
+
+  });
+  let data=await result.json();
+   console.log(data);
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+    console.log("In function")
+  setGames(data);
+  console.log("After function");
+
+  }
+  
+  }
+  const getTennisGames=async()=>{
+    console.log("Hi in getGames")
+    let  result=await fetch("http://localhost:8080/posttournamentname/tennis",{
+      method:'post',
+      body:JSON.stringify({sport}),
       headers:{
           'Content-Type':'application/json'
       }
@@ -63,7 +188,7 @@ console.log(uniqueParticipant);
   }
   const getParticipant=async()=>{
     console.log("Hi in Participant")
-    let  result=await fetch("http://localhost:8080/postparticipant",{
+    let  result=await fetch("http://localhost:8080/postparticipant/badminton",{
       method:'post',
       body:JSON.stringify(),
       headers:{
@@ -85,23 +210,103 @@ console.log(uniqueParticipant);
   }
   
   }
-    const handleTournamentChange = (value) => {
-        console.log("hi in handleTournament")
-        setSelectedTournament(value);
+  const getChessParticipant=async()=>{
+    console.log("Hi in Participant")
+    let  result=await fetch("http://localhost:8080/postparticipant/chess",{
+      method:'post',
+      body:JSON.stringify(),
+      headers:{
+          'Content-Type':'application/json'
       }
-    
-      const handleWinnerChange = (value) => {
-        setSelectedWinner(value);
+
+  });
+  let data=await result.json();
+   console.log(data);
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+    console.log("In function of Participant")
+  setParticipant(data);
+  console.log("After function of participant");
+
+  }
+  
+  }
+  const getCarromParticipant=async()=>{
+    console.log("Hi in Participant")
+    let  result=await fetch("http://localhost:8080/postparticipant/carrom",{
+      method:'post',
+      body:JSON.stringify(),
+      headers:{
+          'Content-Type':'application/json'
       }
-    
-      const handleRunner1Change = (value) => {
-        setSelectedRunner1(value);
+
+  });
+  let data=await result.json();
+   console.log(data);
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+    console.log("In function of Participant")
+  setParticipant(data);
+  console.log("After function of participant");
+
+  }
+  
+  }
+  const getSwimmingParticipant=async()=>{
+    console.log("Hi in Participant")
+    let  result=await fetch("http://localhost:8080/postparticipant/swimming",{
+      method:'post',
+      body:JSON.stringify(),
+      headers:{
+          'Content-Type':'application/json'
       }
-    
-      const handleRunner2Change = (value) => {
-        setSelectedRunner2(value);
-        
+
+  });
+  let data=await result.json();
+   console.log(data);
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+    console.log("In function of Participant")
+  setParticipant(data);
+  console.log("After function of participant");
+
+  }
+  
+  }
+  const getTennisParticipant=async()=>{
+    console.log("Hi in Participant")
+    let  result=await fetch("http://localhost:8080/postparticipant/tennis",{
+      method:'post',
+      body:JSON.stringify(),
+      headers:{
+          'Content-Type':'application/json'
       }
+
+  });
+  let data=await result.json();
+   console.log(data);
+  if(result.status===422)
+  {
+    message.error(data.message);
+  }
+  else{
+    console.log("In function of Participant")
+  setParticipant(data);
+  console.log("After function of participant");
+
+  }
+  
+  }
+   
       const handleSubmit = async () => {
         console.log("Hi in handleSubmit")
         console.log('Sport',sport);

@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
 import { Form, Input, message } from 'antd';
 const Badminton = () => {
-  <h1>Badminton</h1>
+  
   const[games,setGames]=useState([]);
   useEffect(()=>{
  getGames()

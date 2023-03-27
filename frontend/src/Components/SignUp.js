@@ -49,32 +49,31 @@ const SignUp = () => {
 
   return (
     <>
-    <MDBContainer fluid className='p-6 background-radial-gradient overflow-hidden' >
-
+    <MDBContainer fluid className='p-6 background-radial-gradient overflow-hidden'>
+      
       <MDBRow>
-
+      
         <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
 
-          { <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{color: 'hsl(218, 81%, 95%)'}}>
-            <br />
-            <span style={{color: 'hsl(218, 81%, 75%)'}}></span>
-          </h1> }
+         
+            <span style={{color: 'hsl(218, 81%, 75%)'}}>
+              <img src="https://img.freepik.com/free-vector/summer-sports-concept_1284-9394.jpg?w=740&t=st=1678815477~exp=1678816077~hmac=a23fc4333a121a4dca700647625d15f8da1ecbf769ee7fe25c235c02cae68d3e" style={{height:'81.5%',width:'750px',paddingTop:'7%',paddingLeft:'0'}}></img>
+            </span>
+          
 
-          <p className='px-3' style={{color: 'hsl(218, 81%, 85%)'}}>
-            
-          </p>
+        
 
         </MDBCol>
 
-        <MDBCol md='6' className='position-relative'>
+        <MDBCol md='6' className='position-relative' >
 
-          <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
-          <div id="radius-shape-2" className="position-absolute shadow-5-strong"></div>
+         
 
-          <MDBCard className='my-5 bg-glass'>
+          <MDBCard className='my-5 bg-glass ' style={{paddingLeft:'0px'}}>
             <MDBCardBody className='p-5'>
 
               <MDBRow>
+              <h1 style={{textAlign:'center'}}>Welcome!!! Sign Up here</h1>
                 <MDBCol col='6'>
                   <MDBInput wrapperClass='mb-4' label='ID number' id='form1' type='text'  value={username} onChange={(e)=>setUserName(e.target.value)}/>
                 </MDBCol>
@@ -89,7 +88,7 @@ const SignUp = () => {
 
               
 
-              <MDBBtn className='w-30 ' size='lg' style={{ marginLeft:'50%'}} onClick={collectData}>sign up</MDBBtn>
+              <MDBBtn className='w-30 ' size='lg' style={{ marginLeft:'50%',width:'20%'}} onClick={collectData} >sign up</MDBBtn>
 
               <div className="text-center">
 

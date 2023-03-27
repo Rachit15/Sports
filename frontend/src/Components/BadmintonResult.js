@@ -73,4 +73,4 @@ const BadmintonResult = () => {
   )
 }
 
-export default BadmintonResult
+export default BadmintonResult;

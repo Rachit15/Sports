@@ -4,6 +4,10 @@ const Creator=require('../db/model/Creator');
 const Tournament=require('../db/model/Tournament');
 const ResourceUser=require('../db/model/Resource');
 const Participants=require('../db/model/Participant');
+const ChessParticipants=require('../db/model/ChessParticipant');
+const CarromParticipants=require('../db/model/CarromParticipant');
+const SwimmingParticipants=require('../db/model/SwimmingParticipant');
+const TennisParticipants=require('../db/model/TennisParticipant');
 const Result=require('../db/model/Result');
 const bcrypt=require('bcryptjs');
 const cookie=require('cookie');
@@ -98,19 +102,21 @@ router.post('/arrange',async(req,res)=>
 console.log(typeof authenticate);
 router.post('/createtournament',async(req,res)=>{
     console.log("Hi in create");
-    const {tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2}=req.body;
-   
+    const {tournamentname,tournamentplace,tournamenthost,winner,Runner1,Runner2,startDate,selectedOption}=req.body;
+   console.log('selectedOpton',selectedOption);
     try{
-  if(!tournamentname||!tournamentplace||!startDate||!selectedOption||!tournamenthost||!winner||!Runner1||!Runner2)
-  {
+  if(!tournamentname||!tournamentplace||!startDate||!tournamenthost||!winner||!Runner1||!Runner2)
+   {
     return res.status(422).json({message:"Plz fill all details"});
-  }
+   }
     // const tournament =new Tournament({tournamentname,tournamentplace,startDate,selectedOption,tournamenthost,winner,Runner1,Runner2});
     const initid="2022";
    const initvar=0;
    
    const resource=new ResourceUser({initid,initvar});
+   
    let resourceresult=await resource.save();
+   console.log("After saving");
    console.log(resourceresult);
    const d=await ResourceUser.findOne({initid:"2022"});
    
@@ -155,17 +161,17 @@ router.post('/individualevents/event1',async(req,res)=>{
 }});
 router.post('/participant',async(req,res)=>{
     console.log("Hi in Participant");
-    const {Name,ID,BirthDate,Gender,TournamentID,email,Contactno}=req.body;
+    const {Name,ID,age,Gender,TournamentID,email,Contactno,department}=req.body;
    
     try{
-    if(!Name||!ID||!BirthDate||!Gender||!TournamentID||!email||!Contactno)
+    if(!Name||!ID||!age||!Gender||!TournamentID||!email||!Contactno||!department)
   {
     console.log("hi");
     return res.status(422).json({message:"Plz fill all details"});
    }
     
 
-    const participant =new Participants({Name,ID,BirthDate,Gender,TournamentID,email,Contactno});
+    const participant =new Participants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
    
     let resultparticipant=await participant.save();
   var mailOptions={
@@ -304,7 +310,8 @@ res.status(200).json({message:"Updated Successfully"});
    
 });
 router.get(`/user/delete/:id`,async (req, res) => {
-    console.log("Hi in delete");
+    console.log("Hi in delete ");
+    console.log(req.params);
     const id=req.params.id;
     console.log(id);
     const result=await Tournament.deleteOne({TID:id});
@@ -312,11 +319,13 @@ router.get(`/user/delete/:id`,async (req, res) => {
    res.status(200).json({message:"Deleted Successfully"})
     // other code to edit the user and send a response back to the client
 });
-router.post('/posttournamentname',async(req,res)=>{
+router.post('/posttournamentname/badminton',async(req,res)=>{
     console.log(
         "In posttournament name"
     )
-    const game= await Tournament.find();
+     const {sport}=req.body;
+     console.log("Sport",sport);
+    const game= await Tournament.find({tournamentplace:sport});
     console.log(game);
     if(game.length>0)
     {
@@ -326,11 +335,135 @@ router.post('/posttournamentname',async(req,res)=>{
          return res.status(422).json({message:"No upcoming events"});
      }
 });
-router.post('/postparticipant',async(req,res)=>{
+router.post('/posttournamentname/chess',async(req,res)=>{
+    console.log(
+        "In posttournament name"
+    )
+     const {sport}=req.body;
+     console.log("Sport",sport);
+    const game= await Tournament.find({tournamentplace:sport});
+    console.log(game);
+    if(game.length>0)
+    {
+        res.status(200).send(game);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/posttournamentname/carrom',async(req,res)=>{
+    console.log(
+        "In posttournament name"
+    )
+     const {sport}=req.body;
+     console.log("Sport",sport);
+    const game= await Tournament.find({tournamentplace:sport});
+    console.log(game);
+    if(game.length>0)
+    {
+        res.status(200).send(game);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/posttournamentname/swimming',async(req,res)=>{
+    console.log(
+        "In posttournament name"
+    )
+     const {sport}=req.body;
+     console.log("Sport",sport);
+    const game= await Tournament.find({tournamentplace:sport});
+    console.log(game);
+    if(game.length>0)
+    {
+        res.status(200).send(game);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/posttournamentname/tennis',async(req,res)=>{
+    console.log(
+        "In posttournament name"
+    )
+     const {sport}=req.body;
+     console.log("Sport",sport);
+    const game= await Tournament.find({tournamentplace:sport});
+    console.log(game);
+    if(game.length>0)
+    {
+        res.status(200).send(game);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/postparticipant/badminton',async(req,res)=>{
     console.log(
         "In postparticipant"
     )
     const participant= await Participants.find();
+    console.log("Displaying Participants")
+    // console.log(participant);
+    if(participant.length>0)
+    {
+        res.status(200).send(participant);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/postparticipant/chess',async(req,res)=>{
+    console.log(
+        "In postparticipant"
+    )
+    const participant= await ChessParticipants.find();
+    console.log("Displaying Participants")
+    console.log(participant);
+    if(participant.length>0)
+    {
+        res.status(200).send(participant);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/postparticipant/carrom',async(req,res)=>{
+    console.log(
+        "In postparticipant"
+    )
+    const participant= await CarromParticipants.find();
+    console.log("Displaying Participants")
+    console.log(participant);
+    if(participant.length>0)
+    {
+        res.status(200).send(participant);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/postparticipant/swimming',async(req,res)=>{
+    console.log(
+        "In postparticipant"
+    )
+    const participant= await SwimmingParticipants.find();
+    console.log("Displaying Participants")
+    console.log(participant);
+    if(participant.length>0)
+    {
+        res.status(200).send(participant);
+    }
+     else{
+         return res.status(422).json({message:"No upcoming events"});
+     }
+});
+router.post('/postparticipant/tennis',async(req,res)=>{
+    console.log(
+        "In postparticipant"
+    )
+    const participant= await TennisParticipants.find();
     console.log("Displaying Participants")
     console.log(participant);
     if(participant.length>0)
@@ -380,7 +513,492 @@ router.post('/individualevents/event1/result',async(req,res)=>{
        res.send(game);
    }
     else{
-       return res.status(422).json({message:"No upcoming Badminton events"});
+       return res.status(422).json({message:"No Result of Badminton events uploaded"});
    
 }});
+router.post('/individualevents/event2',async(req,res)=>{
+
+    const curr=new Date();
+    console.log(curr);
+    const game= await Tournament.find({tournamentplace:"Chess",startDate:{$gte:curr}});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No upcoming Chess events"});
+   
+}});
+router.post('/individualevents/event3',async(req,res)=>{
+
+    const curr=new Date();
+    console.log(curr);
+    const game= await Tournament.find({tournamentplace:"Carrom",startDate:{$gte:curr}});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No upcoming Carrom events"});
+   
+}});
+router.post('/individualevents/event4',async(req,res)=>{
+
+    const curr=new Date();
+    console.log(curr);
+    const game= await Tournament.find({tournamentplace:"Swimming",startDate:{$gte:curr}});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No upcoming Swimming events"});
+   
+}});
+router.post('/individualevents/event5',async(req,res)=>{
+
+    const curr=new Date();
+    console.log(curr);
+    const game= await Tournament.find({tournamentplace:"Tennis",startDate:{$gte:curr}});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No upcoming Tennis events"});
+   
+}});
+router.post('/chessparticipant',async(req,res)=>{
+    console.log("Hi in ChessParticipant");
+    const {Name,ID,age,Gender,TournamentID,email,Contactno,department}=req.body;
+    console.log(age);
+   
+    try{
+    if(!Name||!ID||!age||!Gender||!TournamentID||!email||!Contactno||!department)
+  {
+    console.log("hi");
+    return res.status(422).json({message:"Plz fill all details"});
+   }
+    
+
+    const chessparticipant =new ChessParticipants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
+   
+    let resultparticipant=await chessparticipant.save();
+  var mailOptions={
+    from:"help.ddusports@gmail.com",
+    to: resultparticipant.email,
+    subject:'Registration Info',
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+  }
+  transporter.sendMail(mailOptions,(err,info)=>{
+    if(err)
+    {
+        return console.log(err);
+    }
+    console.log(`Message Sent ${info.messageId}`);
+  });
+    console.log(resultparticipant);
+    res.send(resultparticipant);
+   
+    
+    }
+    catch(err){
+        console.log(err);
+    }
+   
+});
+router.post('/carromparticipant',async(req,res)=>{
+    console.log("Hi in CarromParticipant");
+    const {Name,ID,age,Gender,TournamentID,email,Contactno,department}=req.body;
+    console.log(age);
+   
+    try{
+    if(!Name||!ID||!age||!Gender||!TournamentID||!email||!Contactno||!department)
+  {
+    console.log("hi");
+    return res.status(422).json({message:"Plz fill all details"});
+   }
+    
+
+    const carromparticipant =new CarromParticipants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
+   
+    let resultparticipant=await carromparticipant.save();
+  var mailOptions={
+    from:"help.ddusports@gmail.com",
+    to: resultparticipant.email,
+    subject:'Registration Info',
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+  }
+  transporter.sendMail(mailOptions,(err,info)=>{
+    if(err)
+    {
+        return console.log(err);
+    }
+    console.log(`Message Sent ${info.messageId}`);
+  });
+    console.log(resultparticipant);
+    res.send(resultparticipant);
+   
+    
+    }
+    catch(err){
+        console.log(err);
+    }
+   
+});
+router.post('/swimmingparticipant',async(req,res)=>{
+    console.log("Hi in Swimming Participant");
+    const {Name,ID,age,Gender,TournamentID,email,Contactno,department}=req.body;
+    console.log(age);
+   
+    try{
+    if(!Name||!ID||!age||!Gender||!TournamentID||!email||!Contactno||!department)
+  {
+    console.log("hi");
+    return res.status(422).json({message:"Plz fill all details"});
+   }
+    
+
+    const swimmingparticipant =new SwimmingParticipants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
+   
+    let resultparticipant=await swimmingparticipant.save();
+  var mailOptions={
+    from:"help.ddusports@gmail.com",
+    to: resultparticipant.email,
+    subject:'Registration Info',
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+  }
+  transporter.sendMail(mailOptions,(err,info)=>{
+    if(err)
+    {
+        return console.log(err);
+    }
+    console.log(`Message Sent ${info.messageId}`);
+  });
+    console.log(resultparticipant);
+    res.send(resultparticipant);
+   
+    
+    }
+    catch(err){
+        console.log(err);
+    }
+   
+});
+router.post('/tennisparticipant',async(req,res)=>{
+    console.log("Hi in Swimming Participant");
+    const {Name,ID,age,Gender,TournamentID,email,Contactno,department}=req.body;
+    console.log(age);
+   
+    try{
+    if(!Name||!ID||!age||!Gender||!TournamentID||!email||!Contactno||!department)
+  {
+    console.log("hi");
+    return res.status(422).json({message:"Plz fill all details"});
+   }
+    
+
+    const tennisparticipant =new TennisParticipants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
+   
+    let resultparticipant=await tennisparticipant.save();
+    console.log(resultparticipant);
+  var mailOptions={
+    from:"help.ddusports@gmail.com",
+    to: resultparticipant.email,
+    subject:'Registration Info',
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+  }
+  transporter.sendMail(mailOptions,(err,info)=>{
+    if(err)
+    {
+        return console.log(err);
+    }
+    console.log(`Message Sent ${info.messageId}`);
+  });
+    console.log(resultparticipant);
+    res.send(resultparticipant);
+   
+    
+    }
+    catch(err){
+        console.log(err);
+    }
+   
+});
+router.post('/individualevents/event2/result',async(req,res)=>{
+
+    const curr=new Date();
+    console.log(curr);
+    const game= await Result.find({sport:"Chess"});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No Chess Results uploaded"});
+   
+}});
+router.post('/individualevents/event3/result',async(req,res)=>{
+
+    
+    console.log("In carrom result");
+    const game= await Result.find({sport:"Carrom"});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No Carrom Results uploaded"});
+   
+}});
+router.post('/individualevents/event4/result',async(req,res)=>{
+
+    const curr=new Date();
+    console.log(curr);
+    const game= await Result.find({sport:"Swimming"});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No Carrom Results uploaded"});
+   
+}});
+router.post('/individualevents/event5/result',async(req,res)=>{
+
+    const curr=new Date();
+    console.log(curr);
+    const game= await Result.find({sport:"Tennis"});
+   
+   console.log(game);
+   if(game.length>0)
+   {
+       res.send(game);
+   }
+    else{
+       return res.status(422).json({message:"No Carrom Results uploaded"});
+   
+}});
+router.post('/viewstats',async(req,res)=>{
+    console.log("hi");
+    try {
+        const result = await Participants.aggregate([
+          {
+            $group: {
+              _id: '$department',
+              count: { $sum: 1 }
+            }
+          }
+        ]);
+        const formattedResult = {};
+        result.forEach((row) => {
+          formattedResult[row._id] = row.count;
+        });
+        console.log(formattedResult);
+        res.send(formattedResult);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/viewstats/chess',async(req,res)=>{
+    console.log("hi");
+    try {
+        const result = await ChessParticipants.aggregate([
+          {
+            $group: {
+              _id: '$department',
+              count: { $sum: 1 }
+            }
+          }
+        ]);
+        const formattedResult = {};
+        result.forEach((row) => {
+          formattedResult[row._id] = row.count;
+        });
+        console.log(formattedResult);
+        res.send(formattedResult);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/viewstats/carrom',async(req,res)=>{
+    console.log("hi");
+    try {
+        const result = await CarromParticipants.aggregate([
+          {
+            $group: {
+              _id: '$department',
+              count: { $sum: 1 }
+            }
+          }
+        ]);
+        const formattedResult = {};
+        result.forEach((row) => {
+          formattedResult[row._id] = row.count;
+        });
+        console.log(formattedResult);
+        res.send(formattedResult);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/viewstats/swimming',async(req,res)=>{
+    console.log("hi");
+    try {
+        const result = await SwimmingParticipants.aggregate([
+          {
+            $group: {
+              _id: '$department',
+              count: { $sum: 1 }
+            }
+          }
+        ]);
+        const formattedResult = {};
+        result.forEach((row) => {
+          formattedResult[row._id] = row.count;
+        });
+        console.log(formattedResult);
+        res.send(formattedResult);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/viewstats/tennis',async(req,res)=>{
+    console.log("hi in tennis stats");
+    try {
+        const result = await TennisParticipants.aggregate([
+          {
+            $group: {
+              _id: '$department',
+              count: { $sum: 1 }
+            }
+          }
+        ]);
+        const formattedResult = {};
+        result.forEach((row) => {
+          formattedResult[row._id] = row.count;
+        });
+        console.log(formattedResult);
+        res.send(formattedResult);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/count/badminton',async(req,res)=>{
+    console.log("hi in badminton count");
+    try {
+      const d=await Tournament.find({sport:'Badminton'});
+      console.log(d);
+      
+      for (let i = 0; i < d.length; i++) {
+        const year = d[i]?.startDate?.toString().substr(11,4);
+        // Do something with year value, such as logging it to the console
+        console.log(year);
+      }
+        const femalecount=await Participants.find({Gender:'female'}).count();
+        const malecount=await Participants.find({Gender:'male'}).count();
+        console.log('Female',femalecount);
+        console.log('male',malecount);
+        const response = {
+            femaleCount: femalecount,
+            maleCount: malecount
+        };
+        
+        res.status(200).json(response);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/count/chess',async(req,res)=>{
+    console.log("hi in badminton count");
+    try {
+        const femalecount=await ChessParticipants.find({Gender:'female'}).count();
+        const malecount=await ChessParticipants.find({Gender:'male'}).count();
+        console.log('Female',femalecount);
+        console.log('male',malecount);
+        const response = {
+            femaleCount: femalecount,
+            maleCount: malecount
+        };
+        
+        res.status(200).json(response);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/count/carrom',async(req,res)=>{
+    console.log("hi in badminton count");
+    try {
+        const femalecount=await CarromParticipants.find({Gender:'female'}).count();
+        const malecount=await CarromParticipants.find({Gender:'male'}).count();
+        console.log('Female',femalecount);
+        console.log('male',malecount);
+        const response = {
+            femaleCount: femalecount,
+            maleCount: malecount
+        };
+        
+        res.status(200).json(response);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/count/swimming',async(req,res)=>{
+    console.log("hi in swimming count");
+    try {
+        const femalecount=await SwimmingParticipants.find({Gender:'female'}).count();
+        const malecount=await SwimmingParticipants.find({Gender:'male'}).count();
+        console.log('Female',femalecount);
+        console.log('male',malecount);
+        const response = {
+            femaleCount: femalecount,
+            maleCount: malecount
+        };
+        
+        res.status(200).json(response);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
+   router.post('/count/tennis',async(req,res)=>{
+    console.log("hi in tennis count");
+    try {
+        const femalecount=await TennisParticipants.find({Gender:'female'}).count();
+        const malecount=await TennisParticipants.find({Gender:'male'}).count();
+        console.log('Female',femalecount);
+        console.log('male',malecount);
+        const response = {
+            femaleCount: femalecount,
+            maleCount: malecount
+        };
+        
+        res.status(200).json(response);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error getting participants by department');
+      }
+   });
 module.exports=router;

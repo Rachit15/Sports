@@ -32,23 +32,22 @@ import {
 } from 'antd';
 
 const { Option } = Select;
-const Register = () => {
-  console.log("Hi");
-     const [Name,setName]=useState("");
+
+const ChessParticipant = () => {
+    const [Name,setName]=useState("");
    const [ID,setID]=useState("");
-    const [age, setAge] = React.useState("");
+    const [age, setAge] = useState();
      const [Gender, setGender] = useState("");
-  
+  const [department,setDepartment]=useState("");
   const [TournamentID,setTournamentID]=useState("");
    const [email,setEmail]=useState("");
   const [Contactno,setContactno]=useState("");
-  const[department,setDepartment]=useState("");
   const[games,setGames]=useState([]);
   useEffect(()=>{
  getGames()
   },[]);
   const getGames=async()=>{
-    let  result=await fetch("http://localhost:8080/individualevents/event1",{
+    let  result=await fetch("http://localhost:8080/individualevents/event2",{
       method:'post',
       body:JSON.stringify({games}),
       headers:{
@@ -73,9 +72,9 @@ const Register = () => {
 }
 
   const collectData = async () => {
-    console.log("hello bye");
+    console.log("In collect Data");
     console.log(Name, ID,age,Gender,TournamentID,email,Contactno,department);
-   const  result=await fetch("http://localhost:8080/participant",{
+   const  result=await fetch("http://localhost:8080/chessparticipant",{
       method:'post',
       body:JSON.stringify({Name, ID,age,Gender,TournamentID,email,Contactno,department}),
       headers:{
@@ -89,13 +88,13 @@ const Register = () => {
   else
    {
     
-     window.location='/';
+      window.location='/chessparticipant';
   }
    console.log(result);
   }
   return (
     <>
-    <MDBContainer fluid className='bg-dark'>
+     <MDBContainer fluid className='bg-dark'>
 
 <MDBRow className='d-flex justify-content-center align-items-center h-100'>
   <MDBCol>
@@ -135,7 +134,6 @@ const Register = () => {
             
             
 <div>
-
 <MDBRow>
 <MDBInput wrapperClass='mb-4' label='Age' size='lg' id='form5' type='text'
 style={{width:'10%'}}
@@ -150,7 +148,7 @@ style={{width:'10%'}}
                       </MDBRow>
                       </div>
             <div className='d-md-flex ustify-content-start align-items-center mb-4'>
-              <h6 class="fw-bold mb-0 me-4">For: </h6>
+              <h6 class="fw-bold mb-0 me-4">Gender: </h6>
               <MDBRadio name='inlineRadio' id='inlineRadio1' value='male' label='Male' 
                inline  checked={Gender === 'male'} onChange={handleOptionChange}
               />
@@ -218,4 +216,5 @@ style={{width:'10%'}}
   )
 }
 
-export default Register;
+export default ChessParticipant;
+

@@ -32,23 +32,23 @@ import {
 } from 'antd';
 
 const { Option } = Select;
-const Register = () => {
-  console.log("Hi");
-     const [Name,setName]=useState("");
+
+const TennisParticipant = () => {
+    const [Name,setName]=useState("");
    const [ID,setID]=useState("");
-    const [age, setAge] = React.useState("");
+   const [age, setAge] = useState();
      const [Gender, setGender] = useState("");
-  
+     
+     const [department,setDepartment]=useState("");
   const [TournamentID,setTournamentID]=useState("");
    const [email,setEmail]=useState("");
   const [Contactno,setContactno]=useState("");
-  const[department,setDepartment]=useState("");
   const[games,setGames]=useState([]);
   useEffect(()=>{
  getGames()
   },[]);
   const getGames=async()=>{
-    let  result=await fetch("http://localhost:8080/individualevents/event1",{
+    let  result=await fetch("http://localhost:8080/individualevents/event5",{
       method:'post',
       body:JSON.stringify({games}),
       headers:{
@@ -75,7 +75,7 @@ const Register = () => {
   const collectData = async () => {
     console.log("hello bye");
     console.log(Name, ID,age,Gender,TournamentID,email,Contactno,department);
-   const  result=await fetch("http://localhost:8080/participant",{
+   const  result=await fetch("http://localhost:8080/tennisparticipant",{
       method:'post',
       body:JSON.stringify({Name, ID,age,Gender,TournamentID,email,Contactno,department}),
       headers:{
@@ -95,7 +95,7 @@ const Register = () => {
   }
   return (
     <>
-    <MDBContainer fluid className='bg-dark'>
+      <MDBContainer fluid className='bg-dark'>
 
 <MDBRow className='d-flex justify-content-center align-items-center h-100'>
   <MDBCol>
@@ -123,7 +123,7 @@ const Register = () => {
               </MDBCol>
 
             <  MDBCol md='6'>
-                <MDBInput wrapperClass='mb-4' label='ID' size='lg'  type='text' 
+                <MDBInput wrapperClass='mb-4' label='Department' size='lg'  type='text' 
                  value={ID} onChange={(e) => setID(e.target.value)}
                 />
               </MDBCol>
@@ -135,7 +135,6 @@ const Register = () => {
             
             
 <div>
-
 <MDBRow>
 <MDBInput wrapperClass='mb-4' label='Age' size='lg' id='form5' type='text'
 style={{width:'10%'}}
@@ -143,10 +142,8 @@ style={{width:'10%'}}
             />
             <MDBInput wrapperClass='mb-4' label='Department' size='lg' id='form5' type='text' style={{width:'10%'}}
 
-             value={department} onChange={(e) => setDepartment(e.target.value)}
-            />
-            
-                     
+value={department} onChange={(e) => setDepartment(e.target.value)}
+/>    
                       </MDBRow>
                       </div>
             <div className='d-md-flex ustify-content-start align-items-center mb-4'>
@@ -213,9 +210,9 @@ style={{width:'10%'}}
   </MDBCol>
 </MDBRow>
 
-</MDBContainer>
+</MDBContainer>  
     </>
   )
 }
 
-export default Register;
+export default TennisParticipant;

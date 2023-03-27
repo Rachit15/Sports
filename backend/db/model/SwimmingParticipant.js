@@ -1,7 +1,7 @@
 const mongoose  = require("mongoose");
 // const bcrypt=require('bcryptjs');
 // const jwt=require('jsonwebtoken')
-const ParticipantSchema=new mongoose.Schema({
+const SwimmingParticipantSchema=new mongoose.Schema({
     Name:{
         type:String,
         required:true
@@ -19,8 +19,9 @@ Gender:{type:String,
         Contactno :{type:Number,
             required:true},
             department :{type:String,
-                required:true}
+                required:true},
+                
             
    
 });
-module.exports= new mongoose.model("ParticipantDB",ParticipantSchema);
+module.exports= new mongoose.model("SwimmingParticipantDB",SwimmingParticipantSchema);

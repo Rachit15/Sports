@@ -18,32 +18,24 @@ import { MDBSelect, MDBSelectOption, MDBSelectOptions, MDBSelectInput } from 'md
 
 import DatePicker from 'react-datepicker';
 
-
-const options = [
-  {
-    text: 'Badminton',
-    value: 'Badminton'
-  },
-  {
-    text: 'Chess',
-    value: 'Chess'
-  },
-  {
-    text: 'Carrom',
-    value: 'Carrom'
-  },
-  {
-    text: 'Swimming',
-    value: 'Swimming'
-  },
-  {
-    text: 'Tennis',
-    value: 'Tennis'
-  }
-
-];
+import {
+  Button,
+  Checkbox,
+  Col,
+  Form,
+  InputNumber,
+  Radio,
+  Rate,
+  Row,
+  Select,
+  Slider,
+  Switch,
+  Upload,
+  message
+} from 'antd';
+const { Option } = Select;
 const CreateTournament = () => {
-    console.log("Hi");
+    
     const [tournamentname,setTournamentname]=useState("");
   const [tournamentplace,setTournamentplace]=useState("");
     const [startDate, setStartDate] = React.useState(new Date());
@@ -54,6 +46,7 @@ const CreateTournament = () => {
   const [Runner1,setRunner1]=useState("");
   const [Runner2,setRunner2]=useState("");
   const handleSelect = (selected) => {
+    console.log("In handle select");
     setSelectedOption(selected[0].value);
   }
   const handleOptionChange = (changeEvent) => {
@@ -72,7 +65,7 @@ const CreateTournament = () => {
 
   });
   let data=await result.json();
-  if(!data||result.status===422)
+  if(result.status===422)
   console.log("error");
   else
   {
@@ -112,11 +105,28 @@ const CreateTournament = () => {
       <MDBSelect options={options} selected={tournamentplace} label='Sport' getValue={handleSelect} />
     </MDBCol> */}
 
-             <  MDBCol md='6'>
+              {/* <  MDBCol md='6'>
                 <MDBInput wrapperClass='mb-4' label='Sport' size='lg'  type='text' value={tournamentplace} onChange={(e) => setTournamentplace(e.target.value)}/>
-              </MDBCol> 
+              </MDBCol>  */}
 
-            </MDBRow>
+             </MDBRow> 
+            <Select placeholder="Select Sport" label="Sport" style={{ width: 150,paddingBottom:'5%' }} onChange={(value) => setTournamentplace(value)}>
+        
+       
+         
+           
+             <Option value="Badminton">Badminton</Option>
+             <Option value="Chess">Chess</Option>
+             <Option value="Carrom">Carrom</Option>
+             <Option value="Swimming">Swimming</Option>
+             <Option value="Tennis">Tennis</Option>
+         
+          
+         
+       
+     
+         
+       </Select>
             
             
               
@@ -146,9 +156,9 @@ const CreateTournament = () => {
                       </div>
             <div className='d-md-flex ustify-content-start align-items-center mb-4'>
               <h6 class="fw-bold mb-0 me-4">For: </h6>
-              <MDBRadio name='inlineRadio' id='inlineRadio1' value='male' label='Male' inline  checked={selectedOption === 'male'} onChange={handleOptionChange}/>
-              <MDBRadio name='inlineRadio' id='inlineRadio2' value='female' label='Female' inline  checked={selectedOption === 'female'} onChange={handleOptionChange}/>
-              <MDBRadio name='inlineRadio' id='inlineRadio3' value='mix' label='Mix' inline  checked={selectedOption === 'mix'} onChange={handleOptionChange}/>
+              <MDBRadio name='inlineRadio' id='inlineRadio1' value='male' label='Male' inline  checked={selectedOption === 'male'} onClick={() => setSelectedOption('male')}/>
+              <MDBRadio name='inlineRadio' id='inlineRadio2' value='female' label='Female' inline  checked={selectedOption === 'female'} onClick={() => setSelectedOption('female')}/>
+              <MDBRadio name='inlineRadio' id='inlineRadio3' value='mix' label='Mix' inline  checked={selectedOption === 'mix'} onClick={() => setSelectedOption('mix')}/>
             </div>
 
            

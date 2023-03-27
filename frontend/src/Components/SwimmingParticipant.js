@@ -32,23 +32,22 @@ import {
 } from 'antd';
 
 const { Option } = Select;
-const Register = () => {
-  console.log("Hi");
-     const [Name,setName]=useState("");
+
+const SwimmingParticipant = () => {
+    const [Name,setName]=useState("");
    const [ID,setID]=useState("");
-    const [age, setAge] = React.useState("");
+   const [age, setAge] = useState();
      const [Gender, setGender] = useState("");
-  
+     const [department,setDepartment]=useState("");
   const [TournamentID,setTournamentID]=useState("");
    const [email,setEmail]=useState("");
   const [Contactno,setContactno]=useState("");
-  const[department,setDepartment]=useState("");
   const[games,setGames]=useState([]);
   useEffect(()=>{
  getGames()
   },[]);
   const getGames=async()=>{
-    let  result=await fetch("http://localhost:8080/individualevents/event1",{
+    let  result=await fetch("http://localhost:8080/individualevents/event4",{
       method:'post',
       body:JSON.stringify({games}),
       headers:{
@@ -75,7 +74,7 @@ const Register = () => {
   const collectData = async () => {
     console.log("hello bye");
     console.log(Name, ID,age,Gender,TournamentID,email,Contactno,department);
-   const  result=await fetch("http://localhost:8080/participant",{
+   const  result=await fetch("http://localhost:8080/swimmingparticipant",{
       method:'post',
       body:JSON.stringify({Name, ID,age,Gender,TournamentID,email,Contactno,department}),
       headers:{
@@ -135,19 +134,14 @@ const Register = () => {
             
             
 <div>
-
-<MDBRow>
 <MDBInput wrapperClass='mb-4' label='Age' size='lg' id='form5' type='text'
 style={{width:'10%'}}
              value={age} onChange={(e) => setAge(e.target.value)}
             />
             <MDBInput wrapperClass='mb-4' label='Department' size='lg' id='form5' type='text' style={{width:'10%'}}
 
-             value={department} onChange={(e) => setDepartment(e.target.value)}
-            />
-            
-                     
-                      </MDBRow>
+value={department} onChange={(e) => setDepartment(e.target.value)}
+/>
                       </div>
             <div className='d-md-flex ustify-content-start align-items-center mb-4'>
               <h6 class="fw-bold mb-0 me-4">For: </h6>
@@ -213,9 +207,9 @@ style={{width:'10%'}}
   </MDBCol>
 </MDBRow>
 
-</MDBContainer>
+</MDBContainer>  
     </>
   )
 }
 
-export default Register;
+export default SwimmingParticipant;
