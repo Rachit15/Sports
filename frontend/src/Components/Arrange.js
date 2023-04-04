@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import './Arrange.css';
 import Button from 'react-bootstrap/esm/Button';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+import {message} from "antd";
 import {
   MDBBtn,
   MDBContainer,
@@ -13,15 +14,15 @@ import {
   MDBInput,
   MDBIcon
 }from  'mdb-react-ui-kit';
-const Arrange = () => {
+const Arrange = ({setisLoggedin}) => {
   
-    
+    // const {state,dispatch}=useContext(UserContext);
     const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const collectData = async () => {
-     console.log("hello hy");
+     console.log("hello ");
      console.log(email, password);
-     let  result=await fetch("http://localhost:8080/arrange",{
+     let  result=await fetch("/arrange",{
             method:'post',
             body:JSON.stringify({email,password}),
             headers:{
@@ -29,8 +30,17 @@ const Arrange = () => {
             }
 
         });
-        result=await result.json();
-        localStorage.setItem("creator",JSON.stringify(result));
+       let data=await result.json();
+        if(!data||result.status===400)
+      message.error(data.message);
+        else
+        {
+          console.log("In login");
+           setisLoggedin(true);
+          
+          localStorage.setItem("creator",JSON.stringify(result));
+          window.location='/adminpanel';
+        }
 
   }
   return (
@@ -50,10 +60,14 @@ const Arrange = () => {
               <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Email address' id='formControlLg' type='email' size="lg" value={email} onChange={(e) => setEmail(e.target.value)} />
               <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Password' id='formControlLg' type='password' size="lg" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-              <p className="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-              <button type="button" className="btn btn-primary text-uppercase btn-md shadow  rounded"
-                style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }} onClick={collectData} >Login</button>
+              
 
+              <button type="button" className="btn btn-primary text-uppercase btn-md shadow  rounded"
+                style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }} onClick={collectData} as={Link} to='/createtournament' >Login</button>
+                <Link to='/forgetpassword'>
+<input type="submit" className="btn btn-success text-uppercase btn-md shadow  rounded"
+                style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }}  value="Forgot Password" />
+                </Link>
               <div className='d-flex flex-row mt-3 mb-5'>
                 <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
                   <MDBIcon fab icon='facebook-f' size="lg" />
@@ -70,7 +84,7 @@ const Arrange = () => {
 
               <div>
                 {/* <p className="mb-0">Don't have an account? <class="text-white-50 fw-bold" as={Link} to='/signup'>Sign Up</a></p> */}
-                <Button class="Sign" as={Link} to='signup'> SignUp</Button>
+                {/* <Button class="Sign" as={Link} to='signup'> SignUp</Button> */}
               </div>
             </MDBCardBody>
           </MDBCard>

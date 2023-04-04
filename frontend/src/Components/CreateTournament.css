@@ -1,0 +1,13 @@
+/* .d-none d-md-block{
+    height: 900px;
+} */
+/* .imgs
+{
+    height: 2000px;
+} */
+.react-datepicker__input-container {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    border: 1px solid #ccc;
+}

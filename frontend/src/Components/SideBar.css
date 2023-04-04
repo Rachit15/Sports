@@ -1,0 +1,47 @@
+.cont {
+    display: flex;
+    position: absolute;
+    top: 10%
+}
+
+.sidenav {
+    height: 90vh;
+
+    width: 15%;
+    /* position: fixed; */
+    z-index: 10;
+    /* overflow-x: hidden; */
+    transition: 0.8s;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #222;
+    text-align: center;
+    border-radius: 5px;
+    /* flex-basis: 20%; */
+    flex: 1;
+}
+.games{
+    color:gold;
+ padding-bottom: 15px;
+    
+}
+h2{
+    color:white;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 1.4rem;
+    display: block;
+    transition: 0.3s;
+    color: white;
+    border-color: white;
+    border: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.sidenav a:hover {
+    background-color: #585858;
+}

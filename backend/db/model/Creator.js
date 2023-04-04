@@ -33,7 +33,7 @@ CreatorSchema.pre('save',async function(next){
 CreatorSchema.methods.generateAuthToken=async function()
 {
     try{
-        let token=jwt.sign({_id:this._id},process.env.SECRET_KEY);
+        let token=jwt.sign({_id:this._id},process.env.SECRET_kEY);
         this.tokens=this.tokens.concat({token:token});
         await this.save();
         return token;
