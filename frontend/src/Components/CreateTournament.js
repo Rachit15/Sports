@@ -66,7 +66,9 @@ const CreateTournament = () => {
   });
   let data=await result.json();
   if(result.status===422)
-  console.log("error");
+  {
+    message.error(data.message);
+  }
   else
   {
     

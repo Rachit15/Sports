@@ -68,23 +68,12 @@ const Arrange = ({setisLoggedin}) => {
 <input type="submit" className="btn btn-success text-uppercase btn-md shadow  rounded"
                 style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", fontWeight: "bold", height: "40px", marginBottom: "20px" }}  value="Forgot Password" />
                 </Link>
-              <div className='d-flex flex-row mt-3 mb-5'>
-                <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
-                  <MDBIcon fab icon='facebook-f' size="lg" />
-                </MDBBtn>
-
-                <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
-                  <MDBIcon fab icon='twitter' size="lg" />
-                </MDBBtn>
-
-                <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
-                  <MDBIcon fab icon='google' size="lg" />
-                </MDBBtn>
-              </div>
+              
 
               <div>
+                
                 {/* <p className="mb-0">Don't have an account? <class="text-white-50 fw-bold" as={Link} to='/signup'>Sign Up</a></p> */}
-                {/* <Button class="Sign" as={Link} to='signup'> SignUp</Button> */}
+                {/* <Button class="Sign" as={Link} to='/register' style={{color:'white'}}> SignUp</Button> */}
               </div>
             </MDBCardBody>
           </MDBCard>

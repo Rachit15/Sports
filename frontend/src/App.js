@@ -96,7 +96,7 @@ const App=()=> {
           <Route  exact path='/report' element={<Report/>}></Route> 
         </Routes>
         </BrowserRouter>
-        { <Footer style={{ textAlign: "center", backgroundColor: "black" }}>
+        {/* { <Footer style={{ textAlign: "center", backgroundColor: "black" }}>
           <p className="text-center" style={{ color: "white", padding: "5px" }}>
             Copyright @2023 | Designed With by <a href="#">StayFit</a>
           </p>
@@ -122,7 +122,7 @@ const App=()=> {
               </a>
             </li>
           </ul>
-        </Footer> }
+        </Footer> } */}
         {/* </UserContext.Provider> */}
       </>  
     
