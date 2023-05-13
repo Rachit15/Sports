@@ -105,7 +105,7 @@ router.post('/createtournament',async(req,res)=>{
     const {tournamentname,tournamentplace,tournamenthost,winner,Runner1,Runner2,startDate,selectedOption}=req.body;
    console.log('selectedOpton',selectedOption);
     try{
-  if(!tournamentname||!tournamentplace||!startDate||!tournamenthost||!winner||!Runner1||!Runner2)
+  if(!tournamentname||!tournamentplace||!startDate||!tournamenthost||!winner||!Runner1||!Runner2||!selectedOption)
    {
     return res.status(422).json({message:"Plz fill all details"});
    }
@@ -169,8 +169,16 @@ router.post('/participant',async(req,res)=>{
     console.log("hi");
     return res.status(422).json({message:"Plz fill all details"});
    }
-    
-
+    const tournaments=await Tournament.findOne({tournamentname:TournamentID});
+    console.log('Tournaments',tournaments);
+    const fors=tournaments.selectedOption;
+      console.log(tournaments.selectedOption);
+      console.log(tournaments.startDate.toString().substr(0,15))
+if( fors!="mix"&&Gender!=fors)
+{
+  console.log("Invalid Gender");
+  return res.status(423).json({message:"This tournament not availaible for selected Gender"})
+}
     const participant =new Participants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
    
     let resultparticipant=await participant.save();
@@ -178,7 +186,7 @@ router.post('/participant',async(req,res)=>{
     from:"help.ddusports@gmail.com",
     to: resultparticipant.email,
     subject:'Registration Info',
-    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID} held on ${tournaments.startDate.toString().substr(0,15)}` 
   }
   transporter.sendMail(mailOptions,(err,info)=>{
     if(err)
@@ -587,7 +595,16 @@ router.post('/chessparticipant',async(req,res)=>{
     console.log("hi");
     return res.status(422).json({message:"Plz fill all details"});
    }
-    
+   const tournaments=await Tournament.findOne({tournamentname:TournamentID});
+   console.log('Tournaments',tournaments);
+   const fors=tournaments.selectedOption;
+     console.log(tournaments.selectedOption);
+     console.log(tournaments.startDate.toString().substr(0,15))
+if( fors!="mix"&&Gender!=fors)
+{
+ console.log("Invalid Gender");
+ return res.status(423).json({message:"This tournament not availaible for selected Gender"})
+}
 
     const chessparticipant =new ChessParticipants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
    
@@ -596,7 +613,7 @@ router.post('/chessparticipant',async(req,res)=>{
     from:"help.ddusports@gmail.com",
     to: resultparticipant.email,
     subject:'Registration Info',
-    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID} held on ${tournaments.startDate.toString().substr(0,15)}` 
   }
   transporter.sendMail(mailOptions,(err,info)=>{
     if(err)
@@ -626,7 +643,16 @@ router.post('/carromparticipant',async(req,res)=>{
     console.log("hi");
     return res.status(422).json({message:"Plz fill all details"});
    }
-    
+   const tournaments=await Tournament.findOne({tournamentname:TournamentID});
+   console.log('Tournaments',tournaments);
+   const fors=tournaments.selectedOption;
+     console.log(tournaments.selectedOption);
+     console.log(tournaments.startDate.toString().substr(0,15))
+if( fors!="mix"&&Gender!=fors)
+{
+ console.log("Invalid Gender");
+ return res.status(423).json({message:"This tournament not availaible for selected Gender"})
+}
 
     const carromparticipant =new CarromParticipants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
    
@@ -635,7 +661,7 @@ router.post('/carromparticipant',async(req,res)=>{
     from:"help.ddusports@gmail.com",
     to: resultparticipant.email,
     subject:'Registration Info',
-    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID} held on ${tournaments.startDate.toString().substr(0,15)}` 
   }
   transporter.sendMail(mailOptions,(err,info)=>{
     if(err)
@@ -665,7 +691,16 @@ router.post('/swimmingparticipant',async(req,res)=>{
     console.log("hi");
     return res.status(422).json({message:"Plz fill all details"});
    }
-    
+   const tournaments=await Tournament.findOne({tournamentname:TournamentID});
+   console.log('Tournaments',tournaments);
+   const fors=tournaments.selectedOption;
+     console.log(tournaments.selectedOption);
+     console.log(tournaments.startDate.toString().substr(0,15))
+if( fors!="mix"&&Gender!=fors)
+{
+ console.log("Invalid Gender");
+ return res.status(423).json({message:"This tournament not availaible for selected Gender"})
+}
 
     const swimmingparticipant =new SwimmingParticipants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
    
@@ -674,7 +709,7 @@ router.post('/swimmingparticipant',async(req,res)=>{
     from:"help.ddusports@gmail.com",
     to: resultparticipant.email,
     subject:'Registration Info',
-    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID} held on ${tournaments.startDate.toString().substr(0,15)}` 
   }
   transporter.sendMail(mailOptions,(err,info)=>{
     if(err)
@@ -705,7 +740,16 @@ router.post('/tennisparticipant',async(req,res)=>{
     return res.status(422).json({message:"Plz fill all details"});
    }
     
-
+   const tournaments=await Tournament.findOne({tournamentname:TournamentID});
+   console.log('Tournaments',tournaments);
+   const fors=tournaments.selectedOption;
+     console.log(tournaments.selectedOption);
+     console.log(tournaments.startDate.toString().substr(0,15))
+if( fors!="mix"&&Gender!=fors)
+{
+ console.log("Invalid Gender");
+ return res.status(423).json({message:"This tournament not availaible for selected Gender"})
+}
     const tennisparticipant =new TennisParticipants({Name,ID,age,Gender,TournamentID,email,Contactno,department});
    
     let resultparticipant=await tennisparticipant.save();
@@ -714,7 +758,7 @@ router.post('/tennisparticipant',async(req,res)=>{
     from:"help.ddusports@gmail.com",
     to: resultparticipant.email,
     subject:'Registration Info',
-    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID}` 
+    text:`Thank you !!! You have Successfully Registered for ${resultparticipant.TournamentID} held on ${tournaments.startDate.toString().substr(0,15)}` 
   }
   transporter.sendMail(mailOptions,(err,info)=>{
     if(err)
@@ -775,7 +819,7 @@ router.post('/individualevents/event4/result',async(req,res)=>{
        res.send(game);
    }
     else{
-       return res.status(422).json({message:"No Carrom Results uploaded"});
+       return res.status(422).json({message:"No Swimming Results uploaded"});
    
 }});
 router.post('/individualevents/event5/result',async(req,res)=>{
@@ -790,7 +834,7 @@ router.post('/individualevents/event5/result',async(req,res)=>{
        res.send(game);
    }
     else{
-       return res.status(422).json({message:"No Carrom Results uploaded"});
+       return res.status(422).json({message:"No Tennis Results uploaded"});
    
 }});
 router.post('/viewstats',async(req,res)=>{
@@ -906,14 +950,22 @@ router.post('/viewstats',async(req,res)=>{
    router.post('/count/badminton',async(req,res)=>{
     console.log("hi in badminton count");
     try {
-      const d=await Tournament.find({sport:'Badminton'});
-      console.log(d);
+      const startOfYear = new Date("2023-01-01T00:00:00Z");
+        const endOfYear = new Date("2023-12-31T23:59:59Z");
+        const tournaments = await Tournament.find({
+          startDate: {
+              $gte: startOfYear,
+              $lte: endOfYear
+          },
+          tournamentplace:'Badminton'
+      });
+      console.log('Tournaments in 2023:', tournaments);
       
-      for (let i = 0; i < d.length; i++) {
-        const year = d[i]?.startDate?.toString().substr(11,4);
-        // Do something with year value, such as logging it to the console
-        console.log(year);
-      }
+      // for (let i = 0; i < d.length; i++) {
+      //   const year = d[i]?.startDate?.toString().substr(11,4);
+      //   // Do something with year value, such as logging it to the console
+      //   console.log(year);
+      // }
         const femalecount=await Participants.find({Gender:'female'}).count();
         const malecount=await Participants.find({Gender:'male'}).count();
         console.log('Female',femalecount);

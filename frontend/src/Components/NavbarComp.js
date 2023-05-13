@@ -199,10 +199,10 @@ const NavbarComp = ({isLoggedin}) => {
         <Nav.Link as={Link} to="/aboutus">
               About Us
             </Nav.Link>
-                <Nav.Link as={Link} to="/arrange">
+                {/* <Nav.Link as={Link} to="/arrange">
                   Create Tournament
                   
-                </Nav.Link>
+                </Nav.Link> */}
                
                
               </>

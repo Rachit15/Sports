@@ -85,6 +85,12 @@ const CarromParticipant = () => {
   let data=await result.json();
   if(!data||result.status===422)
   message.error(data.message);
+
+  else if(result.status===423)
+  {
+    message.error(data.message);
+  }
+  
   else
    {
     

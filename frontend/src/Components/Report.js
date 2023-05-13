@@ -40,7 +40,11 @@ const Report = () => {
     const[isCarrom,setIsCarrom]=useState(false);
     const[isSwimming,setIsSwimming]=useState(false);
     const[isTennis,setIsTennis]=useState(false);
-    
+    const[isDetails,setIsDetails]=useState(false);
+    const[isDetails1,setIsDetails1]=useState(false);
+    const[isDetails2,setIsDetails2]=useState(false);
+    const[isDetails3,setIsDetails3]=useState(false);
+    const[isDetails4,setIsDetails4]=useState(false);
   useEffect(()=>{
     getBadmintonCount();
     getChessCount();
@@ -53,6 +57,64 @@ const Report = () => {
  getSwimmingParticipant();
  getTennisParticipant();
   },[]);
+  const onButtonClick = () => {
+    // using Java Script method to get PDF file
+    fetch('Report.pdf').then(response => {
+        response.blob().then(blob => {
+            // Creating new object of PDF file
+            const fileURL = window.URL.createObjectURL(blob);
+            // Setting various property values
+            let alink = document.createElement('a');
+            alink.href = fileURL;
+            alink.download = 'Report.pdf';
+            alink.click();
+        })
+    })
+}
+  const handleYearChange = (value) => {
+    console.log('value',value);
+    if (value === '2023') {
+      setIsDetails(true);
+      setIsDetails1(false);
+      setIsDetails2(false);
+      setIsDetails3(false);
+      setIsDetails4(false);
+      
+    } else if (value === '2022') {
+      setIsDetails(false);
+      setIsDetails1(true);
+      setIsDetails2(false);
+      setIsDetails3(false);
+      setIsDetails4(false);  
+    } 
+    else if (value === '2024') {
+      setIsDetails(false);
+      setIsDetails1(false);
+      setIsDetails2(true);
+      setIsDetails3(false);
+      setIsDetails4(false);
+      
+    } 
+    else if (value === '2025') {
+      setIsDetails(false);
+      setIsDetails1(false);
+      setIsDetails2(false);
+      setIsDetails3(true);
+      setIsDetails4(false);
+      
+    } 
+    else if (value === '2026') {
+      setIsDetails(false);
+      setIsDetails1(false);
+      setIsDetails2(false);
+      setIsDetails3(false);
+      setIsDetails4(true);
+    } 
+    // else {
+    //   setIsDetails(false);
+    //   setOtherValue(false);
+    // }
+  };
   console.log(year);
   if(badmintonmalecount&&badmintonfemalecount)
   {
@@ -334,15 +396,15 @@ const Report = () => {
   
   return (
     <>
-    <Select placeholder="Year" style={{ width: 150,marginLeft:'40%',paddingTop:'1%' }} onChange={(value) => setYear(value)} >
+    <Select placeholder="Year" style={{ width: 150,marginLeft:'40%',paddingTop:'1%' }} onChange={handleYearChange} >
        
          
            
-       <Option value="2021">2021</Option>
        <Option value="2022">2022</Option>
        <Option value="2023">2023</Option>
        <Option value="2024">2024</Option>
        <Option value="2025">2025</Option>
+       <Option value="2026">2026</Option>
    
      
    
@@ -350,10 +412,15 @@ const Report = () => {
 
    
  </Select>
-    <h1  style={{marginLeft:'38%',color:'white',paddingTop:'1%'}}>SportWise Details</h1>
+ {/* <button onClick={onButtonClick}>
+                    Download PDF
+                </button> */}
+                
+
+  {isDetails&&( <h1  style={{marginLeft:'38%',color:'white',paddingTop:'1%'}}>SportWise Details</h1>)} 
        <Table striped bordered hover variant='dark'  borderColor="success">
       
-      <tr>
+     {isDetails&&( <tr>
         <th>Sr No.</th>
         <th>Sport</th>
         <th>Male Participants</th>
@@ -364,10 +431,11 @@ const Report = () => {
         
 
       </tr>
-      
+     )}
         
             
-              <tr >
+             {isDetails&&( 
+             <tr >
                 <td >1</td>
                 <td className='badmintontrue' onClick={handleBadminton}>Badminton</td>
                 <td>{badmintonmalecount}</td>
@@ -377,6 +445,8 @@ const Report = () => {
                 
 
               </tr>
+             )}
+             {isDetails&&(
               <tr >
                 <td >2</td>
                 <td className='badmintontrue' onClick={handleChess}>Chess</td>
@@ -386,8 +456,8 @@ const Report = () => {
                 
                 
 
-              </tr>
-              <tr >
+              </tr>)}
+            {isDetails&&(  <tr >
                 <td >3</td>
                 <td className='badmintontrue' onClick={handleCarrom}>Carrom</td>
                 <td>{carrommalecount}</td>
@@ -397,8 +467,9 @@ const Report = () => {
                 
 
               </tr>
+            )}
               
-              <tr >
+            {isDetails&&(  <tr >
                 <td >4</td>
                 <td className='badmintontrue' onClick={handleSwimming}>Swimming</td>
                 <td>{swimmingmalecount}</td>
@@ -408,7 +479,8 @@ const Report = () => {
                 
 
               </tr>
-              <tr >
+            )}
+             {isDetails&&( <tr >
                 <td >5</td>
                 <td className='badmintontrue' onClick={handleTennis}>Tennis</td>
                 <td>{tennismalecount}</td>
@@ -417,11 +489,320 @@ const Report = () => {
                 
                 
 
-              </tr>
-          
+              </tr>)}
+     
       
       
     </Table> 
+    {isDetails1&&( <h1  style={{marginLeft:'38%',color:'white',paddingTop:'1%'}}>SportWise Details</h1>)} 
+       <Table striped bordered hover variant='dark'  borderColor="success">
+      
+     {isDetails1&&( <tr>
+        <th>Sr No.</th>
+        <th>Sport</th>
+        <th>Male Participants</th>
+
+        <th>Female Particicpants</th>
+        
+        
+        
+
+      </tr>
+     )}
+        
+            
+             {isDetails1&&( 
+             <tr >
+                <td >1</td>
+                <td className='badmintontrue' onClick={handleBadminton}>Badminton</td>
+                <td>2</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>
+             )}
+             {isDetails1&&(
+              <tr >
+                <td >2</td>
+                <td className='badmintontrue' onClick={handleChess}>Chess</td>
+                <td>4</td>
+                <td>3</td>
+                
+                
+                
+
+              </tr>)}
+            {isDetails1&&(  <tr >
+                <td >3</td>
+                <td className='badmintontrue' onClick={handleCarrom}>Carrom</td>
+                <td>1</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>
+            )}
+              
+            {isDetails1&&(  <tr >
+                <td >4</td>
+                <td className='badmintontrue' onClick={handleSwimming}>Swimming</td>
+                <td>1</td>
+                <td>2</td>
+                
+                
+                
+
+              </tr>
+            )}
+             {isDetails1&&( <tr >
+                <td >5</td>
+                <td className='badmintontrue' onClick={handleTennis}>Tennis</td>
+                <td>1</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>)}
+     
+      
+      
+    </Table> 
+    {isDetails2&&( <h1  style={{marginLeft:'38%',color:'white',paddingTop:'1%'}}>SportWise Details</h1>)} 
+       <Table striped bordered hover variant='dark'  borderColor="success">
+      
+     {isDetails2&&( <tr>
+        <th>Sr No.</th>
+        <th>Sport</th>
+        <th>Male Participants</th>
+
+        <th>Female Particicpants</th>
+        
+        
+        
+
+      </tr>
+     )}
+        
+            
+             {isDetails2&&( 
+             <tr >
+                <td >1</td>
+                <td className='badmintontrue' onClick={handleBadminton}>Badminton</td>
+                <td>1</td>
+                <td>2</td>
+                
+                
+                
+
+              </tr>
+             )}
+             {isDetails2&&(
+              <tr >
+                <td >2</td>
+                <td className='badmintontrue' onClick={handleChess}>Chess</td>
+                <td>2</td>
+                <td>0</td>
+                
+                
+                
+
+              </tr>)}
+            {isDetails2&&(  <tr >
+                <td >3</td>
+                <td className='badmintontrue' onClick={handleCarrom}>Carrom</td>
+                <td>3</td>
+                <td>2</td>
+                
+                
+                
+
+              </tr>
+            )}
+              
+            {isDetails2&&(  <tr >
+                <td >4</td>
+                <td className='badmintontrue' onClick={handleSwimming}>Swimming</td>
+                <td>3</td>
+                <td>3</td>
+                
+                
+                
+
+              </tr>
+            )}
+             {isDetails2&&( <tr >
+                <td >5</td>
+                <td className='badmintontrue' onClick={handleTennis}>Tennis</td>
+                <td>2</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>)}
+     
+      
+      
+    </Table> 
+    {isDetails3&&( <h1  style={{marginLeft:'38%',color:'white',paddingTop:'1%'}}>SportWise Details</h1>)} 
+       <Table striped bordered hover variant='dark'  borderColor="success">
+      
+     {isDetails3&&( <tr>
+        <th>Sr No.</th>
+        <th>Sport</th>
+        <th>Male Participants</th>
+
+        <th>Female Particicpants</th>
+        
+        
+        
+
+      </tr>
+     )}
+        
+            
+             {isDetails3&&( 
+             <tr >
+                <td >1</td>
+                <td className='badmintontrue' onClick={handleBadminton}>Badminton</td>
+                <td>1</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>
+             )}
+             {isDetails3&&(
+              <tr >
+                <td >2</td>
+                <td className='badmintontrue' onClick={handleChess}>Chess</td>
+                <td>2</td>
+                <td>2</td>
+                
+                
+                
+
+              </tr>)}
+            {isDetails3&&(  <tr >
+                <td >3</td>
+                <td className='badmintontrue' onClick={handleCarrom}>Carrom</td>
+                <td>4</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>
+            )}
+              
+            {isDetails3&&(  <tr >
+                <td >4</td>
+                <td className='badmintontrue' onClick={handleSwimming}>Swimming</td>
+                <td>0</td>
+                <td>2</td>
+                
+                
+                
+
+              </tr>
+            )}
+             {isDetails3&&( <tr >
+                <td >5</td>
+                <td className='badmintontrue' onClick={handleTennis}>Tennis</td>
+                <td>1</td>
+                <td>2</td>
+                
+                
+                
+
+              </tr>)}
+     
+      
+      
+    </Table> 
+    {isDetails4&&( <h1  style={{marginLeft:'38%',color:'white',paddingTop:'1%'}}>SportWise Details</h1>)} 
+       <Table striped bordered hover variant='dark'  borderColor="success">
+      
+     {isDetails4&&( <tr>
+        <th>Sr No.</th>
+        <th>Sport</th>
+        <th>Male Participants</th>
+
+        <th>Female Particicpants</th>
+        
+        
+        
+
+      </tr>
+     )}
+        
+            
+             {isDetails4&&( 
+             <tr >
+                <td >1</td>
+                <td className='badmintontrue' onClick={handleBadminton}>Badminton</td>
+                <td>2</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>
+             )}
+             {isDetails4&&(
+              <tr >
+                <td >2</td>
+                <td className='badmintontrue' onClick={handleChess}>Chess</td>
+                <td>4</td>
+                <td>3</td>
+                
+                
+                
+
+              </tr>)}
+            {isDetails4&&(  <tr >
+                <td >3</td>
+                <td className='badmintontrue' onClick={handleCarrom}>Carrom</td>
+                <td>1</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>
+            )}
+              
+            {isDetails4&&(  <tr >
+                <td >4</td>
+                <td className='badmintontrue' onClick={handleSwimming}>Swimming</td>
+                <td>1</td>
+                <td>2</td>
+                
+                
+                
+
+              </tr>
+            )}
+             {isDetails4&&( <tr >
+                <td >5</td>
+                <td className='badmintontrue' onClick={handleTennis}>Tennis</td>
+                <td>1</td>
+                <td>1</td>
+                
+                
+                
+
+              </tr>)}
+     
+      
+      
+    </Table> 
+  
     {isBadminton&&(
     <h1 style={{marginLeft:'35%',color:'white'}}>Badminton Participants</h1>
     )
